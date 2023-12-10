@@ -1,9 +1,6 @@
 // Material imports
 import styled from "@emotion/styled";
-import { Grid, Box, Typography, CardMedia } from "@mui/material";
-
-// Image import
-import illustrationImage from '../images/couverture.png';
+import { Grid, Box, Typography } from "@mui/material";
 
 // Custom components
 export const CustomGrid = styled(Grid)({

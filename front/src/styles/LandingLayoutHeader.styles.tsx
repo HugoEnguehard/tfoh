@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 // Material imports
 import styled from "@emotion/styled";
-import { Grid, Box, Divider } from "@mui/material";
+import { Grid, Box, Divider, Avatar } from "@mui/material";
 
 // Custom components
 export const CustomGrid = styled(Grid)({
@@ -13,7 +13,7 @@ export const CustomGrid = styled(Grid)({
     flexDirection: 'column',
     width: '100%',
     margin: '50px 0',
-    height: 'calc(20vh - 100px)'
+    height: 'calc(20vh - 100px)',
 });
 
 export const CustomBoxNavRow = styled(Box)({
@@ -23,7 +23,9 @@ export const CustomBoxNavRow = styled(Box)({
 });
 
 export const CustomBoxRow = styled(CustomBoxNavRow)({
-    justifyContent: 'space-between'
+    display: 'flex',
+    justifyContent: 'space-between',
+    minHeight: '40px',
 });
 
 export const CustomDivider = styled(Divider)({
@@ -35,7 +37,7 @@ export const CustomDivider = styled(Divider)({
 export const CustomDividerVertical = styled(Divider)({
     backgroundColor: '#000000',
     width: '.1px',
-    height: '20px'
+    height: '20px',
 });
 
 export const CustomNavlinkLanding = styled(NavLink)({
@@ -54,3 +56,12 @@ export const CustomNavlinkButton = styled(CustomNavlinkLanding)({
     },
 });
 
+export const CustomBoxProfile = styled(Box)({
+    display: 'flex',
+    alignItems: 'center',
+});
+
+export const CustomAvatar = styled(Avatar)({
+    width: '50px',
+    height: '50px',
+});

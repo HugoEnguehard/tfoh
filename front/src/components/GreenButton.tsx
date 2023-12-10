@@ -1,9 +1,10 @@
 // React imports
-import { styled } from "@mui/material";
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
 
-const CustomNavLink = styled(NavLink)({
+// Material imports
+import { Button, styled } from "@mui/material";
+
+const CustomButton = styled(Button)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -16,6 +17,7 @@ const CustomNavLink = styled(NavLink)({
     fontSize: '20px',
     transition: '.5s',
     minWidth: '200px',
+    textTransform: 'none',
 
     "&:hover": {
         color: '#278527',
@@ -25,19 +27,20 @@ const CustomNavLink = styled(NavLink)({
 });
 
 // Interfaces
-interface GreenNavLinkProps {
+interface GreenButtonProps {
     label: string,
     width: string,
     height: string,
-    to: string,
+    isSubmit?: boolean,
+    clickFunction?: () => void,
 }
 
-const GreenNavLink: FC<GreenNavLinkProps> = ({ label, width, height, to }: GreenNavLinkProps) => {
+const GreenButton: FC<GreenButtonProps> = ({ label, width, height, isSubmit, clickFunction }: GreenButtonProps) => {
     return (
-        <CustomNavLink to={to} style={{width: `${width}px`, height: `${height}px`}}>
+        <CustomButton style={{width: `${width}px`, height: `${height}px`}} onClick={clickFunction} type={isSubmit ? "submit" : "button"}>
             {label}
-        </CustomNavLink>
+        </CustomButton>
     );
 }
 
-export default GreenNavLink;
+export default GreenButton;

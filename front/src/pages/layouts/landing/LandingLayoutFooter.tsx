@@ -1,12 +1,9 @@
 // React imports
-import React, { FC } from "react";
+import { FC } from "react";
 
 // Style imports
 import * as Styles from '../../../styles/LandingLayoutFooter.styles';
 
-// Material imports
-import { Box, Button, Divider, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
 
 
 const LandingLayoutHeader: FC = () => {

@@ -8,9 +8,6 @@ import illustrationImage from '../../images/couverture.png';
 // Style imports
 import * as Styles from '../../styles/Landing.styles';
 
-// Material UI
-import { CardMedia } from '@mui/material';
-
 const Landing: FC = () => {
     return (
         <>
