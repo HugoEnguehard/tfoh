@@ -1,38 +1,70 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// React imports
 import { Suspense, lazy } from 'react';
-import SuspenseLoading from './pages/page-content/SuspenseLoading';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+// Redux imports
+import { useAppSelector } from './store/store';
 
-// Lazy method allows the component to be downloaded dynamically and not by default when the page is loaded
+// Interfaces
+interface AuthWrapperProps {
+    children: React.ReactNode,
+}
+
+// Page content imports
 const Landing = lazy(() => import('./pages/page-content/Landing'));
 const Signin = lazy(() => import('./pages/page-content/Signin'));
+const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
+
+// Page layout imports
 const LandingLayout = lazy(()=>import ('./pages/layouts/LandingLayout'));
 const SigninLayout = lazy(()=>import ('./pages/layouts/SigninLayout'));
 
+
 const AppRouter = () => {
+    const authStatus = useAppSelector((state)=>state.auth.authStatus);
+
+    const RequiredAuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
+        if (authStatus) return <>{children}</>;
+        else return <Navigate to="/signin" replace/>;
+    }
+
+    const ForbiddenAuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
+        if (authStatus) return <Navigate to="/" replace />;
+        else return <>{children}</>;
+    }
+
     return (
         <Router>
           <Routes>
             <Route path='/' 
                 element={
-                    <Suspense fallback={<SuspenseLoading />}>
+                    <Suspense fallback={<></>}>
                         <LandingLayout childComponent={Landing} />
                     </Suspense>
                 } 
             />
-
             <Route path='/signin' 
                 element={
-                    <Suspense fallback={<SuspenseLoading />}>
-                        <SigninLayout childComponent={Signin} />
+                    <Suspense fallback={<></>}>
+                        <ForbiddenAuthWrapper children={
+                            <SigninLayout childComponent={Signin} />
+                        } />
                     </Suspense>
                 } 
             />
-
+            <Route path='/signout' 
+                element={
+                    <Suspense fallback={<></>}>
+                        <RequiredAuthWrapper children={
+                            <Signout />
+                        } />
+                    </Suspense>
+                } 
+            />
             <Route path='*' 
                 element={
-                    <Suspense fallback={<SuspenseLoading />}>
+                    <Suspense fallback={<></>}>
                         <NotFound />
                     </Suspense>
                 }

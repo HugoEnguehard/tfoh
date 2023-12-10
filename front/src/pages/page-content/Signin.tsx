@@ -1,29 +1,51 @@
 // React imports
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormLabel from "../../components/FormLabel";
 import FormInputText from "../../components/FormInputText";
 import GreenTextLink from "../../components/GreenTextLink";
 import GreenButton from "../../components/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 
+// Redux imports
+import { useAppDispatch } from "../../store/store";
+import { signIn } from "../../store/authSlice";
+
 // Style imports
 import * as Styles from '../../styles/Signin.styles';
 
 // Interfaces
 import SigninForm from "../../interfaces/SigninForm";
+import SignInResult from "../../interfaces/SignInResult.store";
+import { setUser } from "../../store/userSlice";
 
 // Material imports
 
 const Signin: FC = () => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+    
     const [formData, setFormData] = useState<SigninForm>({
         username: '',
         password: '',
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Submit');
-        console.log(formData);
+
+        const signInResult = await dispatch(signIn(formData));
+
+        if(signIn.fulfilled.match(signInResult)) {
+            const signinData = signInResult.payload as SignInResult;
+            if (signinData.success && signinData.user) {
+                dispatch(setUser({
+                    username: signinData.user.username,
+                    profilePicture: signinData.user.profilePicture
+                }));
+                navigate("/");
+            }
+            else console.log(signinData.message);
+        }
     }
 
     const handleChangeInputText = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,4 @@
 export interface UserState {
-    pseudo: string,
+    username: string,
     profilePicture: string,
 }

@@ -56,6 +56,11 @@ export const CustomNavlinkButton = styled(CustomNavlinkLanding)({
     },
 });
 
+export const CustomNavlinkButtonProfile = styled(CustomNavlinkButton)({
+    display: 'flex',
+    alignItems: 'center',
+});
+
 export const CustomBoxProfile = styled(Box)({
     display: 'flex',
     alignItems: 'center',
@@ -64,4 +69,5 @@ export const CustomBoxProfile = styled(Box)({
 export const CustomAvatar = styled(Avatar)({
     width: '50px',
     height: '50px',
+    marginRight: '10px'
 });

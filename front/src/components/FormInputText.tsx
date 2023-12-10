@@ -19,7 +19,16 @@ const FormLabel: FC<FormLabelProps> = ({ placeholder, name, isPassword, handleCh
     return (
         <>
             <Styles.CustomBox>
-                <Styles.CustomInput name={name} placeholder={placeholder} type={isPassword ? "password" : "text"} onChange={handleChange} value={formData[name]} required />
+                <Styles.CustomInput 
+                    name={name} 
+                    id={name} 
+                    placeholder={placeholder} 
+                    type={isPassword ? "password" : "text"} 
+                    onChange={handleChange} 
+                    value={formData[name]} 
+                    autoComplete={name !== "password" ? name : "off"}
+                    required 
+                />
             </Styles.CustomBox>
         </>
     );

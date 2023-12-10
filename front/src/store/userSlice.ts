@@ -3,26 +3,29 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Interfaces
 import { UserState } from "../interfaces/UserState";
-import pp_b64 from "../data_test/pp_b64";
 
 const initialState: UserState = {
-    pseudo: '',
-    profilePicture: pp_b64,
+    username: '',
+    profilePicture: '',
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<{ pseudo: string, profilePicture: string }>) {
-            state.pseudo = action.payload.pseudo;
+        setUser(state, action: PayloadAction<{ username: string, profilePicture: string }>) {
+            state.username = action.payload.username;
             state.profilePicture = action.payload.profilePicture;
-        }
+        },
+        resetUser(state) {
+            state.username = '';
+            state.profilePicture = '';
+        },
     },
     extraReducers: (builder) => {
         // Gérer les reducers supplémentaires si nécessaire
     }
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, resetUser } = authSlice.actions;
 export default authSlice.reducer;
