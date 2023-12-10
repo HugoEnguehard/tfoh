@@ -14,7 +14,9 @@ const SigninLayout: FC<SigninLayoutProps> = ({ childComponent }: SigninLayoutPro
         <>
         <SigninLayoutHeader />
         <Styles.CustomGrid>
-            {React.createElement(childComponent)}
+            <Styles.CustomGridContent>
+                {React.createElement(childComponent)} 
+            </Styles.CustomGridContent>
         </Styles.CustomGrid>
         </>
     );

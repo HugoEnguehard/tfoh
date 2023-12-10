@@ -6,10 +6,14 @@ import FormInputText from "../../components/FormInputText";
 import GreenTextLink from "../../components/GreenTextLink";
 import GreenButton from "../../components/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
+import TypographyTitle from "../../components/TypographyTitle";
+import TypographyText from "../../components/TypographyText";
+import DividerHorizontal from "../../components/DividerHorizontal";
 
 // Redux imports
 import { useAppDispatch } from "../../store/store";
 import { signIn } from "../../store/authSlice";
+import { setUser } from "../../store/userSlice";
 
 // Style imports
 import * as Styles from '../../styles/Signin.styles';
@@ -17,7 +21,6 @@ import * as Styles from '../../styles/Signin.styles';
 // Interfaces
 import SigninForm from "../../interfaces/SigninForm";
 import SignInResult from "../../interfaces/SignInResult.store";
-import { setUser } from "../../store/userSlice";
 
 // Material imports
 
@@ -40,7 +43,8 @@ const Signin: FC = () => {
             if (signinData.success && signinData.user) {
                 dispatch(setUser({
                     username: signinData.user.username,
-                    profilePicture: signinData.user.profilePicture
+                    email: signinData.user.email,
+                    profilePicture: signinData.user.profilePicture,
                 }));
                 navigate("/");
             }
@@ -58,26 +62,40 @@ const Signin: FC = () => {
     }
 
     return (
-        <Styles.CustomGrid>
-            <Styles.CustomForm onSubmit={handleSubmit}>
-                <Styles.CustomTypographyTitle>Se connecter</Styles.CustomTypographyTitle>
-                <Styles.CustomTypographyText>Bon retour parmi nous !</Styles.CustomTypographyText>
-                <Styles.CustomTypographyText>L'heure de l'aventure à sonnée</Styles.CustomTypographyText>
-                <Styles.CustomDivider />
-                <Styles.CustomBox>
-                    <FormLabel label="Nom Utilisateur" htmlFor="username" />
-                    <FormInputText placeholder="Martin4269" name="username" isPassword={false} handleChange={handleChangeInputText} formData={formData} />
-                    <FormLabel label="Mot de Passe" htmlFor="password" />
-                    <FormInputText placeholder="**********" name="password" isPassword={true} handleChange={handleChangeInputText} formData={formData} />
-                    <GreenTextLink url="forgetPassword" text="Mot de passe oublié ?" />
-                    <Styles.CustomBoxButtons>
-                        <GreenButton label={"Connexion"} width={"400"} height={"50"} isSubmit={true} />
-                        <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>
-                        <GreenNavLink label={"Créer un compte"} width={"400"} height={"50"} to={"/signup"} />
-                    </Styles.CustomBoxButtons>
-                </Styles.CustomBox>
-            </Styles.CustomForm>
-        </Styles.CustomGrid>
+        <Styles.CustomForm onSubmit={handleSubmit}>
+            <TypographyTitle text="SE CONNECTER" />
+            <TypographyText text="Bon retour parmi nous !" />
+            <TypographyText text="L'heure de l'aventure à sonnée" />
+            <DividerHorizontal />
+            <Styles.CustomBox>
+                <FormLabel label="Nom Utilisateur" htmlFor="username" />
+                <FormInputText 
+                    placeholder="Martin4269" 
+                    name="username" 
+                    isPassword={false} 
+                    handleChange={handleChangeInputText} 
+                    formData={formData} 
+                    isEmail={false} 
+                    incorrectField={false} 
+                />
+                <FormLabel label="Mot de Passe" htmlFor="password" />
+                <FormInputText 
+                    placeholder="**********" 
+                    name="password" 
+                    isPassword={true} 
+                    handleChange={handleChangeInputText} 
+                    formData={formData} 
+                    isEmail={false} 
+                    incorrectField={false} 
+                />
+                <GreenTextLink url="forgetPassword" text="Mot de passe oublié ?" />
+                <Styles.CustomBoxButtons>
+                    <GreenButton label={"Connexion"} width={"400"} height={"50"} isSubmit={true} />
+                    <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>
+                    <GreenNavLink label={"Créer un compte"} width={"400"} height={"50"} to={"/signup"} />
+                </Styles.CustomBoxButtons>
+            </Styles.CustomBox>
+        </Styles.CustomForm>
     );
 }
 

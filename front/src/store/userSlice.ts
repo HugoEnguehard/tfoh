@@ -6,6 +6,7 @@ import { UserState } from "../interfaces/UserState";
 
 const initialState: UserState = {
     username: '',
+    email: '',
     profilePicture: '',
 }
 
@@ -13,12 +14,14 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<{ username: string, profilePicture: string }>) {
+        setUser(state, action: PayloadAction<{ username: string, email: string, profilePicture: string }>) {
             state.username = action.payload.username;
+            state.email = action.payload.email;
             state.profilePicture = action.payload.profilePicture;
         },
         resetUser(state) {
             state.username = '';
+            state.email = '';
             state.profilePicture = '';
         },
     },

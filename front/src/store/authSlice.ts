@@ -9,6 +9,8 @@ import { AuthState } from "../interfaces/AuthState";
 import SigninForm from "../interfaces/SigninForm";
 import SignInResult from "../interfaces/SignInResult.store";
 import SignOutResult from "../interfaces/SignOutResult.store";
+import SignupForm from "../interfaces/SignupForm";
+import SignUpResult from "../interfaces/SignUpResult.store";
 
 const initialState: AuthState = {
     authStatus: false,
@@ -23,6 +25,10 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        builder.addCase(signUp.fulfilled, (state, action) => {
+            if(action.payload.success) state.authStatus = true;
+            else state.authStatus = false;
+        });
         builder.addCase(signIn.fulfilled, (state, action) => {
             if(action.payload.success) state.authStatus = true;
             else state.authStatus = false;
@@ -32,6 +38,28 @@ const authSlice = createSlice({
         });
     }
 });
+
+export const signUp = createAsyncThunk<SignUpResult, SignupForm>(
+    "auth/signUp",
+    async(formData: SignupForm) => {
+        try {
+            // TODO : API REQUEST
+            return {
+                success: true,
+                user: {
+                    username: formData.username,
+                    email: formData.email,
+                    profilePicture: pp_b64,
+                }
+            }
+        } catch (error: any) {
+            return {
+                success: false,
+                message: error.message,
+            }
+        }
+    }
+)
 
 export const signIn = createAsyncThunk<SignInResult, SigninForm>(
     "auth/signIn",
@@ -43,6 +71,7 @@ export const signIn = createAsyncThunk<SignInResult, SigninForm>(
                 success: true,
                 user: {
                     username: formData.username,
+                    email: "tempo@email.fr",
                     profilePicture: pp_b64,
                 }
             }

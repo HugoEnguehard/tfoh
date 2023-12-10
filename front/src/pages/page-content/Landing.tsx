@@ -2,6 +2,9 @@
 import { FC } from 'react';
 import GreenNavLink from '../../components/GreenNavLink';
 
+// Redux imports
+import { useAppSelector } from '../../store/store';
+
 // Image import
 import illustrationImage from '../../images/couverture.png';
 
@@ -9,13 +12,15 @@ import illustrationImage from '../../images/couverture.png';
 import * as Styles from '../../styles/Landing.styles';
 
 const Landing: FC = () => {
+    const isAuthenticated = useAppSelector((state: any) => state.auth.authStatus);
+    
     return (
         <>
             <Styles.CustomGrid>
                 <Styles.CustomBoxLeft>
                     <Styles.CustomTypographyTitle>On s'occupe de la technique,</Styles.CustomTypographyTitle>
                     <Styles.CustomTypographyTitle mb="20px">Vous lancez les dés !</Styles.CustomTypographyTitle>
-                    <GreenNavLink label={'Créer un compte'} width={'250'} height={'60'} to={'/signup'} />
+                    <GreenNavLink label={isAuthenticated ? 'Mon espace' : 'Créer un compte'} width={'250'} height={'60'} to={isAuthenticated ? '/home' : '/signup'} />
                     <Styles.CustomTypographyText mt="40px">Créez et gérez facilement vos campagnes et personnages pour une expérience de JDR optimale sur The Legend of Zelda : The Fall of Hyrule !</Styles.CustomTypographyText>
                 </Styles.CustomBoxLeft>
                 <Styles.CustomBoxRight>
@@ -24,7 +29,7 @@ const Landing: FC = () => {
                 </Styles.CustomBoxRight>
             </Styles.CustomGrid>
         </>
-    )
+    );
 }
 
 export default Landing;

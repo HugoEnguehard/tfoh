@@ -13,6 +13,7 @@ interface AuthWrapperProps {
 // Page content imports
 const Landing = lazy(() => import('./pages/page-content/Landing'));
 const Signin = lazy(() => import('./pages/page-content/Signin'));
+const Signup = lazy(() => import('./pages/page-content/Signup'));
 const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
 
@@ -49,6 +50,15 @@ const AppRouter = () => {
                     <Suspense fallback={<></>}>
                         <ForbiddenAuthWrapper children={
                             <SigninLayout childComponent={Signin} />
+                        } />
+                    </Suspense>
+                } 
+            />
+            <Route path='/signup' 
+                element={
+                    <Suspense fallback={<></>}>
+                        <ForbiddenAuthWrapper children={
+                            <SigninLayout childComponent={Signup} />
                         } />
                     </Suspense>
                 } 
