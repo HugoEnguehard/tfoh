@@ -34,7 +34,7 @@ interface GreenNavLinkProps {
 
 const GreenNavLink: FC<GreenNavLinkProps> = ({ label, width, height, to }: GreenNavLinkProps) => {
     return (
-        <CustomNavLink to={to} style={{width: `${width}px`, height: `${height}px`}}>
+        <CustomNavLink to={to} style={{width: `${width}px`, height: `${height}px`}} reloadDocument>
             {label}
         </CustomNavLink>
     );

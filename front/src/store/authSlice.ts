@@ -50,6 +50,9 @@ export const signUp = createAsyncThunk<SignUpResult, SignupForm>(
                     username: formData.username,
                     email: formData.email,
                     profilePicture: pp_b64,
+                    preference: 'MJ',
+                    bio: 'Je suis un champignon',
+                    lovedJdr: 'TOTK',
                 }
             }
         } catch (error: any) {
@@ -73,6 +76,9 @@ export const signIn = createAsyncThunk<SignInResult, SigninForm>(
                     username: formData.username,
                     email: "tempo@email.fr",
                     profilePicture: pp_b64,
+                    preference: 'MJ',
+                    bio: 'Je suis un champignon',
+                    lovedJdr: 'TOTK',
                 }
             }
 

@@ -3,7 +3,6 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormLabel from "../../components/FormLabel";
 import FormInputText from "../../components/FormInputText";
-import GreenTextLink from "../../components/GreenTextLink";
 import GreenButton from "../../components/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 import TypographyTitle from "../../components/TypographyTitle";
@@ -21,12 +20,13 @@ import * as Styles from '../../styles/Signin.styles';
 // Interfaces
 import SigninForm from "../../interfaces/SigninForm";
 import SignInResult from "../../interfaces/SignInResult.store";
+import TextLink from "../../components/TextLink";
 
 // Material imports
 
 const Signin: FC = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     
     const [formData, setFormData] = useState<SigninForm>({
         username: '',
@@ -45,8 +45,11 @@ const Signin: FC = () => {
                     username: signinData.user.username,
                     email: signinData.user.email,
                     profilePicture: signinData.user.profilePicture,
+                    preference: signinData.user.preference,
+                    bio: signinData.user.bio,
+                    lovedJdr: signinData.user.lovedJdr,
                 }));
-                navigate("/");
+                navigate("/profile");
             }
             else console.log(signinData.message);
         }
@@ -88,7 +91,7 @@ const Signin: FC = () => {
                     isEmail={false} 
                     incorrectField={false} 
                 />
-                <GreenTextLink url="forgetPassword" text="Mot de passe oublié ?" />
+                <TextLink url="/forgetPassword" text="Mot de passe oublié ?" color="#278527" />
                 <Styles.CustomBoxButtons>
                     <GreenButton label={"Connexion"} width={"400"} height={"50"} isSubmit={true} />
                     <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>

@@ -45,6 +45,10 @@ export const CustomNavlinkLanding = styled(NavLink)({
     fontSize: '26px',
     textDecoration: 'none',
     fontFamily: 'Hylia Serif',
+
+    "&.active": {
+        textDecoration: 'underline',
+    }
 });
 
 export const CustomNavlinkButton = styled(CustomNavlinkLanding)({

@@ -7,7 +7,7 @@ import { Grid, Typography } from "@mui/material";
 
 // Custom components
 export const CustomGrid = styled(Grid)({
-    width: '100wh',
+    width: '100vw',
     height: '100vh',
 
     display: 'flex',

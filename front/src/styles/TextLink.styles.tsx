@@ -5,8 +5,11 @@ import { NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 
 
-export const CustomNavLink = styled(NavLink)({
-    color: '#278527',
+export const CustomTextLinkNav  = styled(NavLink)({
     fontSize: '16px',
     textDecoration: 'underline',
+
+    "&:hover": {
+        textDecoration: 'underline',
+    }
 });

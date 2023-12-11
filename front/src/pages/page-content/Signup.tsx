@@ -7,7 +7,7 @@ import DividerHorizontal from "../../components/DividerHorizontal";
 import GreenButton from "../../components/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 import FormInputCheckbox from "../../components/FormInputCheckbox";
-import GreenTextLink from "../../components/GreenTextLink";
+import TextLink from "../../components/TextLink";
 import FormErrorMessage from "../../components/FormErrorMessage";
 import SignupForm from "../../interfaces/SignupForm";
 import FormLabel from "../../components/FormLabel";
@@ -70,8 +70,11 @@ const Signup: FC = () => {
                     username: signupData.user.username,
                     email: signupData.user.email,
                     profilePicture: signupData.user.profilePicture,
+                    preference: signupData.user.preference,
+                    bio: signupData.user.bio,
+                    lovedJdr: signupData.user.lovedJdr,
                 }));
-                navigate("/")
+                navigate("/profile")
             }
             else if(signupData.message) {
                 setFormError(signupData.message);
@@ -158,9 +161,9 @@ const Signup: FC = () => {
                         label={
                             <Typography>
                                 {`J'accepte les `}
-                                <GreenTextLink url={"cgu"} text={"Conditions générales d'utilisation"} newTab={true} /> 
+                                <TextLink url={"/cgu"} text={"Conditions générales d'utilisation"} newTab={true} color="#278527"  /> 
                                 {` et la `}
-                                <GreenTextLink url={"pc"} text={"Politique de confidentialité"} newTab={true} />
+                                <TextLink url={"/pc"} text={"Politique de confidentialité"} newTab={true} color="#278527"  />
                             </Typography>
                         } 
                         name={"acceptCGU"} 

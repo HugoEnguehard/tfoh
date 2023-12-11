@@ -3,13 +3,13 @@ import * as Styles from '../styles/FormInputText.styles';
 
 // Interfaces
 interface FormInputTextProps<T> {
-    placeholder: string;
+    placeholder?: string;
     name: keyof T;
-    isPassword: boolean;
-    isEmail: boolean;
+    isPassword?: boolean;
+    isEmail?: boolean;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     formData: T;
-    incorrectField: boolean;
+    incorrectField?: boolean;
 }
 
 const FormInputText = <T,>({

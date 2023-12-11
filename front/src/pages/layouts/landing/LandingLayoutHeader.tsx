@@ -20,10 +20,10 @@ const LandingLayoutHeader: FC = () => {
         <>
             <Styles.CustomGrid>
                 <Styles.CustomBoxRow>
-                    <Styles.CustomNavlinkLanding to="/"><span style={{textDecoration: 'underline'}}>The Legend of Zelda :</span> The Fall of Hyrule</Styles.CustomNavlinkLanding>
+                    <Styles.CustomNavlinkLanding to="/" reloadDocument><span style={{textDecoration: 'underline'}}>The Legend of Zelda :</span> The Fall of Hyrule</Styles.CustomNavlinkLanding>
                     <Styles.CustomBoxProfile>
                         {isAuthenticated ? (
-                            <Styles.CustomNavlinkButtonProfile to="/profile">
+                            <Styles.CustomNavlinkButtonProfile to="/profile" reloadDocument>
                                 <Styles.CustomAvatar src={userData.profilePicture} />
                                 Profile - {userData.username}
                             </Styles.CustomNavlinkButtonProfile>
@@ -33,11 +33,11 @@ const LandingLayoutHeader: FC = () => {
                 <Styles.CustomDivider />
                 <Styles.CustomBoxRow>
                     <Styles.CustomBoxNavRow>
-                        <Styles.CustomNavlinkButton to="/">Accueil</Styles.CustomNavlinkButton>
+                        <Styles.CustomNavlinkButton to="/" reloadDocument>Accueil</Styles.CustomNavlinkButton>
                         <Styles.CustomDividerVertical orientation="vertical" />
-                        <Styles.CustomNavlinkButton to="/contact">Contact</Styles.CustomNavlinkButton>
+                        <Styles.CustomNavlinkButton to="/contact" reloadDocument>Contact</Styles.CustomNavlinkButton>
                         <Styles.CustomDividerVertical orientation="vertical" />
-                        <Styles.CustomNavlinkButton to="/lexique">Lexique</Styles.CustomNavlinkButton>
+                        <Styles.CustomNavlinkButton to="/lexique" reloadDocument>Lexique</Styles.CustomNavlinkButton>
                     </Styles.CustomBoxNavRow>
                     {isAuthenticated ? (
                         <RedNavLink label="Se déconnecter" width="200" height="50" to="/signout" />

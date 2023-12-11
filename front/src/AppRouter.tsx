@@ -16,10 +16,12 @@ const Signin = lazy(() => import('./pages/page-content/Signin'));
 const Signup = lazy(() => import('./pages/page-content/Signup'));
 const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
+const Profile = lazy(() => import('./pages/page-content/Profile'));
 
 // Page layout imports
 const LandingLayout = lazy(()=>import ('./pages/layouts/LandingLayout'));
 const SigninLayout = lazy(()=>import ('./pages/layouts/SigninLayout'));
+const ProfileLayout = lazy(()=>import ('./pages/layouts/ProfileLayout'));
 
 
 const AppRouter = () => {
@@ -68,6 +70,15 @@ const AppRouter = () => {
                     <Suspense fallback={<></>}>
                         <RequiredAuthWrapper children={
                             <Signout />
+                        } />
+                    </Suspense>
+                } 
+            />
+            <Route path='/profile' 
+                element={
+                    <Suspense fallback={<></>}>
+                        <RequiredAuthWrapper children={
+                            <ProfileLayout childComponent={Profile} />
                         } />
                     </Suspense>
                 } 
