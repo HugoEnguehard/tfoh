@@ -13,17 +13,15 @@ interface CustomFormErrorMessageProps {
 const CustomTypography = styled(Typography)({
     textAlign: 'center',
     color: '#D80000',
-    fontSize: '24px',
+    fontSize: '16px',
     fontWeight: 'bold',
     margin: '0 0 30px 0',
 });
 
-const FormErrorMessage: FC<CustomFormErrorMessageProps> = ({ text }: CustomFormErrorMessageProps) => {
+export const ErrorMessage: FC<CustomFormErrorMessageProps> = ({ text }: CustomFormErrorMessageProps) => {
     return (
         <CustomTypography>
             {text}
         </CustomTypography>
     );
 }
-
-export default FormErrorMessage;

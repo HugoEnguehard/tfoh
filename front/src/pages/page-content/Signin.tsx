@@ -1,9 +1,9 @@
 // React imports
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormLabel from "../../components/FormLabel";
-import FormInputText from "../../components/FormInputText";
-import GreenButton from "../../components/GreenButton";
+import FormLabel from "../../components/FormLabel/FormLabel";
+import FormInputText from "../../components/InputText/InputText";
+import GreenButton from "../../components/GreenButton/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 import TypographyTitle from "../../components/TypographyTitle";
 import TypographyText from "../../components/TypographyText";
@@ -93,7 +93,11 @@ const Signin: FC = () => {
                 />
                 <TextLink url="/forgetPassword" text="Mot de passe oublié ?" color="#278527" />
                 <Styles.CustomBoxButtons>
-                    <GreenButton label={"Connexion"} width={"400"} height={"50"} isSubmit={true} />
+                    <GreenButton 
+                        label={"Connexion"}
+                        customStyle={{width: '400px', height: '50px'}}
+                        isSubmit={true} 
+                    />
                     <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>
                     <GreenNavLink label={"Créer un compte"} width={"400"} height={"50"} to={"/signup"} />
                 </Styles.CustomBoxButtons>

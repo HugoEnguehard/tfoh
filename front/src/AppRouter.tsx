@@ -17,7 +17,7 @@ const Signup = lazy(() => import('./pages/page-content/Signup'));
 const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
 const Profile = lazy(() => import('./pages/page-content/Profile'));
-const Account = lazy(() => import('./pages/page-content/Account'));
+const Account = lazy(() => import('./pages/Account/Account.page'));
 
 // Page layout imports
 const LandingLayout = lazy(()=>import ('./pages/layouts/LandingLayout'));

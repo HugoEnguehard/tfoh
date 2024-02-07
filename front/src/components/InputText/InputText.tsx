@@ -1,5 +1,8 @@
 // Style imports
-import * as Styles from '../styles/FormInputText.styles';
+import {
+    CustomBox, 
+    CustomInput,
+} from './InputText.styles';
 
 // Interfaces
 interface FormInputTextProps<T> {
@@ -23,8 +26,8 @@ const FormInputText = <T,>({
 }: FormInputTextProps<T>) => {
     return (
         <>
-            <Styles.CustomBox style={incorrectField ? {border: 'solid 1px #D80000'} : {border: 'solid 1px #278527'}}>
-                <Styles.CustomInput
+            <CustomBox style={incorrectField ? {border: 'solid 1px #D80000'} : {border: 'solid 1px #278527'}}>
+                <CustomInput
                     name={name as string}
                     id={name as string}
                     placeholder={placeholder}
@@ -34,7 +37,7 @@ const FormInputText = <T,>({
                     autoComplete={name !== "password" ? (name as string) : "off"}
                     required
                 />
-            </Styles.CustomBox>
+            </CustomBox>
         </>
     );
 };

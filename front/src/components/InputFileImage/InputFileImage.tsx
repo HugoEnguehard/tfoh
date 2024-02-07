@@ -2,9 +2,10 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 
-const CustomAvatar = styled(Avatar)({
-    borderRadius: '0px',
-});
+// Style imports
+import {
+    CustomAvatar,
+} from './InputFileImage.styles';
 
 interface FormInputFileImageProps<T> {
     formData: T;
@@ -34,13 +35,6 @@ const FormInputFileImage = <T,>({
             <CustomAvatar
                 alt="Profile Picture"
                 src={formData[name] as string} // Utilisation de formData[name] comme source de l'Avatar
-                sx={{
-                    width: 100,
-                    height: 100,
-                    backgroundColor: '#f0f0f0',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
             />
             <input
                 type="file"

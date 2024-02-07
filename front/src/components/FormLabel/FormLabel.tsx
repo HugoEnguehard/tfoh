@@ -2,7 +2,9 @@
 import { FC } from "react";
 
 // Style imports
-import * as Styles from '../styles/FormLabel.styles';
+import {
+    CustomLabel,
+} from './FormLabel.styles';
 
 // Interfaces
 interface FormLabelProps {
@@ -13,9 +15,9 @@ interface FormLabelProps {
 const FormLabel: FC<FormLabelProps> = ({ label, htmlFor }: FormLabelProps) => {
     return (
         <>
-            <Styles.CustomLabel htmlFor={htmlFor}>
+            <CustomLabel htmlFor={htmlFor}>
                 {label}
-            </Styles.CustomLabel>
+            </CustomLabel>
         </>
     );
 }

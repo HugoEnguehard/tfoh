@@ -1,4 +1,4 @@
-export default interface AccountForm {
+export default interface AccountGeneralForm {
     firstname: string,
     lastname: string,
     email: string,

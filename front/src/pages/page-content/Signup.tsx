@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import TypographyTitle from "../../components/TypographyTitle";
 import TypographyText from "../../components/TypographyText";
 import DividerHorizontal from "../../components/DividerHorizontal";
-import GreenButton from "../../components/GreenButton";
+import GreenButton from "../../components/GreenButton/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 import FormInputCheckbox from "../../components/FormInputCheckbox";
 import TextLink from "../../components/TextLink";
-import FormErrorMessage from "../../components/FormErrorMessage";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 import SignupForm from "../../interfaces/SignupForm";
-import FormLabel from "../../components/FormLabel";
-import FormInputText from "../../components/FormInputText";
+import FormLabel from "../../components/FormLabel/FormLabel";
+import FormInputText from "../../components/InputText/InputText";
 
 // Redux imports
 import { useAppDispatch } from "../../store/store";
@@ -111,7 +111,7 @@ const Signup: FC = () => {
                 <TypographyText text="Bienvenue dans le monde des rôlistes !" />
                 <TypographyText text="L'aventure t'appelle !" />
                 <DividerHorizontal />
-                <FormErrorMessage text={formError} />
+                <ErrorMessage text={formError} />
                 <Styles.CustomBox>
                     <FormLabel label={"Nom Utilisateur"} htmlFor={"username"} />
                     <FormInputText 
@@ -172,7 +172,11 @@ const Signup: FC = () => {
                     />
 
                     <Styles.CustomBoxButtons>
-                        <GreenButton label={"S'inscrire"} width={"400"} height={"50"} isSubmit={true} />
+                        <GreenButton 
+                            label={"S'inscrire"} 
+                            customStyle={{width: '400px', height: '50px'}} 
+                            isSubmit={true} 
+                        />
                         <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>
                         <GreenNavLink label={"Aller à l'écran de connexion"} width={"400"} height={"50"} to={"/signin"} />
                     </Styles.CustomBoxButtons>

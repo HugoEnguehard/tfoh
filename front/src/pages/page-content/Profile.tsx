@@ -1,6 +1,6 @@
 // React imports
 import { FC, FormEvent, useState } from "react";
-import GreenButton from "../../components/GreenButton";
+import GreenButton from "../../components/GreenButton/GreenButton";
 
 // Redux imports
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -90,7 +90,11 @@ const Profile: FC = () => {
                         </Box>
                     </Styles.CustomBoxRow>
                     <Box style={{margin: '50px 0 0 20px'}}>
-                        <GreenButton label={"Valider modifications"} width={"300"} height={"50"} isSubmit={true}/>
+                        <GreenButton 
+                            label={"Valider modifications"} 
+                            customStyle={{width: '400px', height: '50px'}} 
+                            isSubmit={true}
+                        />
                     </Box>
                     <Typography style={{color: '#278527', margin: '20px 0 0 20px'}}>{resultMessage}</Typography>
                 </form>
