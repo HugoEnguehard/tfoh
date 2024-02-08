@@ -77,6 +77,7 @@ const Signin: FC = () => {
                     formData={formData} 
                     isEmail={false} 
                     incorrectField={false} 
+                    isRequired
                 />
                 <FormLabel label="Mot de Passe" htmlFor="password" />
                 <FormInputText 
@@ -87,6 +88,7 @@ const Signin: FC = () => {
                     formData={formData} 
                     isEmail={false} 
                     incorrectField={false} 
+                    isRequired
                 />
                 <TextLink url="/forgetPassword" text="Mot de passe oublié ?" color="#278527" />
                 <Styles.CustomBoxButtons>

@@ -26,6 +26,7 @@ import SignUpResult from "../../interfaces/SignUpResult.store";
 
 // Material imports
 import { Typography } from "@mui/material";
+import { CheckPassword } from "../../utils/password";
 
 const Signup: FC = () => {
     const navigate = useNavigate();
@@ -57,6 +58,11 @@ const Signup: FC = () => {
             setFormError('Les mots de passe doivent être identiques !');
             return;
         }
+        else if(!CheckPassword(formData.password)) {
+            setFormProblems({...formProblems, password: true, confirmPassword: true});
+            setFormError('Le mot de passe doit respecter les conditions minimales !');
+            return;
+        }
         else setFormProblems({...formProblems, password: false, confirmPassword: false});
 
         const signUpResult = await dispatch(signUp(formData));
@@ -65,7 +71,7 @@ const Signup: FC = () => {
             const signupData = signUpResult.payload as SignUpResult;
             if(signupData.success && signupData.user) {
                 dispatch(setUser(signupData.user));
-                navigate("/profile")
+                navigate("/profile");
             }
             else if(signupData.message) setFormError(signupData.message);
             else console.log("An unattended error occured");
@@ -111,6 +117,7 @@ const Signup: FC = () => {
                         formData={formData} 
                         isEmail={false} 
                         incorrectField={formProblems.username} 
+                        isRequired
                     />
 
                     <FormLabel label={"Mot de passe"} htmlFor={"password"} />
@@ -122,6 +129,7 @@ const Signup: FC = () => {
                         formData={formData} 
                         isEmail={false} 
                         incorrectField={formProblems.password} 
+                        isRequired
                     />
 
                     <FormLabel label={"Confirmation Mot de passe"} htmlFor={"confirmPassword"} />
@@ -133,7 +141,24 @@ const Signup: FC = () => {
                         formData={formData} 
                         isEmail={false} 
                         incorrectField={formProblems.confirmPassword} 
+                        isRequired
                     />
+
+                    <Typography 
+                        style={{fontSize: '14px', color: '#707070', fontFamily: 'Hylia Serif'}}
+                    >
+                        Le mot de passe doit au moins contenir :
+                    </Typography>
+                    <ul
+                        style={{fontSize: '14px', color: '#707070', fontFamily: 'Hylia Serif'}}
+                    >
+                        <li>1 majuscule</li>
+                        <li>1 minuscule</li>
+                        <li>1 chiffre</li>
+                        <li>1 caractère spécial</li>
+                        <li>8 caractères minimum</li>
+                        <li>30 caractères maximum</li>
+                    </ul>
 
                     <FormLabel label={"Adesse E-mail"} htmlFor={"email"} />
                     <FormInputText 
@@ -144,6 +169,7 @@ const Signup: FC = () => {
                         formData={formData} 
                         isEmail={true} 
                         incorrectField={formProblems.email} 
+                        isRequired
                     />
                 
                     <FormInputCheckbox 

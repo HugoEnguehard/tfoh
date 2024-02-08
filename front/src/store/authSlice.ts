@@ -44,53 +44,39 @@ const authSlice = createSlice({
 
 export const signUp = createAsyncThunk<SignUpResult, SignupForm>(
     "auth/signUp",
-    async(formData: SignupForm) => {
+    async(formData: SignupForm) => 
+    {
         try {
-            // TODO : API REQUEST
-            return {
-                success: true,
-                user: {
-                    id: 0,
-                    firstname: '',
-                    lastname: '',
-                    username: formData.username,
-                    email: formData.email,
-                    profilePicture: pp_b64,
-                    preference: 'MJ',
-                    bio: 'Je suis un champignon',
-                    date_creation: '',
-                    favorite_jdr: '',
-                }
-            }
+            const response = await axios.post('http://localhost:3050/api/users/signup', {
+                username: formData.username,
+                password: formData.password,
+                email: formData.email,
+            });
+
+            if(response.status === 200) return { success: true, user: response.data.user }
+            else return { success: false, message: response.data.message };
         } catch (error: any) {            
-            return {
-                success: false,
-                message: error.message,
-            }
+            return axios.isAxiosError(error)
+                ? (error.response && (error.response.status === 401 || error.response.status === 402 || error.response.status === 403)
+                    ? { success: false, message: error.response.data }
+                    : { success: false, message: error.message })
+                : { success: false, message: error.message };
         }
     }
 )
 
 export const signIn = createAsyncThunk<SignInResult, SigninForm>(
     "auth/signIn",
-    async (formData: SigninForm) => {
+    async (formData: SigninForm) => 
+    {
         try {
             const response = await axios.post('http://localhost:3050/api/users/signin', {
                 username: formData.username,
-                password: formData.password
+                password: formData.password,
             });
             
-            if (response.status === 200) {
-                return {
-                    success: true,
-                    user: response.data.user,
-                }
-            } else {
-                return {
-                    success: false,
-                    message: response.data.message,
-                }
-            }
+            if (response.status === 200) return { success: true, user: response.data.user };
+            else return { success: false, message: response.data.message };
         } catch (error: any) {
             return axios.isAxiosError(error)
                 ? (error.response && error.response.status === 401
@@ -103,18 +89,12 @@ export const signIn = createAsyncThunk<SignInResult, SigninForm>(
 
 export const signOut = createAsyncThunk<SignOutResult> (
     "auth/signOut",
-    async () => {
+    async () => 
+    {
         try {
-            // TODO : API REQUEST
-
-            return {
-                success: true,
-            }
+            return { success: true }
         } catch (error: any) {
-            return {
-                success: false,
-                message: error.message,
-            }
+            return { success: false, message: error.message }
         }
     }
 );

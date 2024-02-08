@@ -68,6 +68,7 @@ export const AccountPasswordFormComponent: FC = () => {
                         formData={formData} 
                         placeholder="**********" 
                         isPassword
+                        isRequired
                     />
                     <br />
                     <FormLabel label="Confirmer nouveau mot de passe :" htmlFor="confirmPassword" />
@@ -77,6 +78,7 @@ export const AccountPasswordFormComponent: FC = () => {
                         formData={formData} 
                         placeholder="**********" 
                         isPassword
+                        isRequired
                     />
                     <br />
                     <FormLabel label="Ancien mot de passe :" htmlFor="oldPassword" />
@@ -86,6 +88,7 @@ export const AccountPasswordFormComponent: FC = () => {
                         formData={formData} 
                         placeholder="**********" 
                         isPassword
+                        isRequired
                     />
                     <br />
                     <GreenButton 

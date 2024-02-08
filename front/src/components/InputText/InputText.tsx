@@ -13,6 +13,7 @@ interface FormInputTextProps<T> {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     formData: T;
     incorrectField?: boolean;
+    isRequired?: boolean;
 }
 
 const FormInputText = <T,>({
@@ -23,6 +24,7 @@ const FormInputText = <T,>({
     formData,
     isEmail,
     incorrectField,
+    isRequired = false,
 }: FormInputTextProps<T>) => {
     return (
         <>
@@ -35,7 +37,7 @@ const FormInputText = <T,>({
                     onChange={handleChange}
                     value={formData[name]}
                     autoComplete={name !== "password" ? (name as string) : "off"}
-                    required
+                    required={isRequired}
                 />
             </CustomBox>
         </>

@@ -63,7 +63,7 @@ const Profile: FC = () => {
                         <Styles.CustomAvatar src={userData.profilePicture} />
                         <Styles.CustomTypographyBlack>
                             <span style={{textDecoration: "underline"}}>Préférence :</span>
-                            {` ${userData.preference}`}
+                            {` ${userData.preference ? userData.preference : 'Aucune'}`}
                         </Styles.CustomTypographyBlack>
                     </Box>
                     <Box style={{marginLeft: '20px'}}>

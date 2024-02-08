@@ -88,16 +88,16 @@ export const AccountGeneralFormComponent: FC = () => {
             <CustomGridRow>
                 <CustomGridColumn style={{marginRight: '100px'}}>
                     <FormLabel label="Prénom :" htmlFor="firstname" />
-                    <FormInputText name="firstname" handleChange={handleChangeText} formData={formData} placeholder="Hugo" />
+                    <FormInputText name="firstname" handleChange={handleChangeText} formData={formData} placeholder="Jean" />
                     <br />
                     <FormLabel label="Nom :" htmlFor="lastname" />
-                    <FormInputText name="lastname" handleChange={handleChangeText} formData={formData} placeholder="Enguehard" />
+                    <FormInputText name="lastname" handleChange={handleChangeText} formData={formData} placeholder="Dupont" />
                     <br />
                     <FormLabel label="Adresse E-mail :" htmlFor="email" />
-                    <FormInputText name="email" handleChange={handleChangeText} formData={formData} placeholder="hugo.enguehard@tfoh.fr" />
+                    <FormInputText name="email" handleChange={handleChangeText} formData={formData} placeholder="dupont@tfoh.fr" isRequired />
                     <br />
                     <FormLabel label="Nom d'utilisateur :" htmlFor="username" />
-                    <FormInputText name="username" handleChange={handleChangeText} formData={formData} placeholder="Darkaine" />
+                    <FormInputText name="username" handleChange={handleChangeText} formData={formData} placeholder="JeanDup93" isRequired />
                 </CustomGridColumn>
                 <DividerVertical />
                 <CustomGridColumn>
