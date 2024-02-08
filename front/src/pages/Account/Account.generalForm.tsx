@@ -6,6 +6,10 @@ import FormLabel from "../../components/FormLabel/FormLabel";
 import FormInputText from "../../components/InputText/InputText";
 import FormInputFileImage from "../../components/InputFileImage/InputFileImage";
 import FormInputSelect from "../../components/FormInputSelect";
+import GreenButton from "../../components/GreenButton/GreenButton";
+
+// Redux imports
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 // Style imports
 import {
@@ -18,27 +22,36 @@ import { Box } from "@mui/material";
 
 // Interfaces
 import AccountGeneralForm from "../../interfaces/AccountGeneralForm";
-import GreenButton from "../../components/GreenButton/GreenButton";
+import { UserState } from "../../interfaces/UserState";
 
 export const AccountGeneralFormComponent: FC = () => {
+    const userData: UserState = useAppSelector((state: any) => state.user);
+
     const [formData, setFormData] = useState<AccountGeneralForm>({
-        firstname: 'Hugo',
-        lastname: 'Enguehard',
-        email: 'hugo.enguehard@tfoh.fr',
-        username: 'Darkaine',
-        currentPassword: '',
-        newPassword: '',
-        newPasswordConfirm: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        username: '',
         profilePicture: '',
-        preference: '',
+        preference: '-',
     });
     const [isGeneralUpdated, setIsGeneralUpdated] = useState<boolean>(false);
+
+    useEffect(() => {        
+        setFormData({
+            firstname: userData.firstname,
+            lastname: userData.lastname,
+            email: userData.email,
+            username: userData.username,
+            profilePicture: userData.profilePicture,
+            preference: userData.preference ? userData.preference : '-',
+        });
+    }, [userData]);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log("Submitted");
         setIsGeneralUpdated(true);
-        
     }
 
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +82,6 @@ export const AccountGeneralFormComponent: FC = () => {
             [name]: value,
         }));
     }
-
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
     
     return (
         <form onSubmit={handleSubmit} style={{width: '100%', height: 'fit-content'}}>
@@ -107,6 +116,7 @@ export const AccountGeneralFormComponent: FC = () => {
                                 handleChange={handleChangeSelect}
                                 formData={formData}
                                 options={[
+                                    { id: '-', label: 'Pas de préférence' },
                                     { id: 'mj', label: 'Maître du Jeu' },
                                     { id: 'pj', label: 'Personnage Joueur' },
                                 ]}

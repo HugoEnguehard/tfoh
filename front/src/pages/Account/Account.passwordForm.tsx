@@ -99,15 +99,17 @@ export const AccountPasswordFormComponent: FC = () => {
                         style={{fontSize: '14px', color: '#707070', fontFamily: 'Hylia Serif'}}
                     >
                         Le mot de passe doit au moins contenir :
-                        <ul>
-                            <li>1 majuscule</li>
-                            <li>1 minuscule</li>
-                            <li>1 chiffre</li>
-                            <li>1 caractère spécial</li>
-                            <li>8 caractères minimum</li>
-                            <li>30 caractères maximum</li>
-                        </ul>
                     </Typography>
+                    <ul
+                        style={{fontSize: '14px', color: '#707070', fontFamily: 'Hylia Serif'}}
+                    >
+                        <li>1 majuscule</li>
+                        <li>1 minuscule</li>
+                        <li>1 chiffre</li>
+                        <li>1 caractère spécial</li>
+                        <li>8 caractères minimum</li>
+                        <li>30 caractères maximum</li>
+                    </ul>
                 </CustomGridColumn>
             </CustomGridRow>
         </form>

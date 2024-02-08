@@ -3,9 +3,6 @@ export default interface AccountGeneralForm {
     lastname: string,
     email: string,
     username: string,
-    currentPassword: string,
-    newPassword: string,
-    newPasswordConfirm: string,
     profilePicture: string,
     preference: string,
 }
