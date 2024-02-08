@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 export const UserService = {
     findUserByUsernameAndPassword: async (username: string, password: string): Promise<User | null> => {
         try {
-            const [rows] = await pool.query(`SELECT * FROM users WHERE username = ?`, [username]);
+            const [rows] = await pool.query(`SELECT * FROM users WHERE UPPER(username) = ?`, [username.toUpperCase()]);
 
             if (Array.isArray(rows) && rows.length > 0) {
                 const userData = rows[0] as User;

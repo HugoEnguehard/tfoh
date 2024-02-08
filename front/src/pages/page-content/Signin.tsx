@@ -21,6 +21,7 @@ import * as Styles from '../../styles/Signin.styles';
 import SigninForm from "../../interfaces/SigninForm";
 import SignInResult from "../../interfaces/SignInResult.store";
 import TextLink from "../../components/TextLink";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 // Material imports
 
@@ -33,6 +34,8 @@ const Signin: FC = () => {
         password: '',
     });
 
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -41,17 +44,10 @@ const Signin: FC = () => {
         if(signIn.fulfilled.match(signInResult)) {
             const signinData = signInResult.payload as SignInResult;
             if (signinData.success && signinData.user) {
-                dispatch(setUser({
-                    username: signinData.user.username,
-                    email: signinData.user.email,
-                    profilePicture: signinData.user.profilePicture,
-                    preference: signinData.user.preference,
-                    bio: signinData.user.bio,
-                    lovedJdr: signinData.user.lovedJdr,
-                }));
+                dispatch(setUser(signinData.user));
                 navigate("/profile");
             }
-            else console.log(signinData.message);
+            else setErrorMessage(signinData.message as string);
         }
     }
 
@@ -70,6 +66,7 @@ const Signin: FC = () => {
             <TypographyText text="Bon retour parmi nous !" />
             <TypographyText text="L'heure de l'aventure à sonnée" />
             <DividerHorizontal />
+            <ErrorMessage text={errorMessage} />
             <Styles.CustomBox>
                 <FormLabel label="Nom Utilisateur" htmlFor="username" />
                 <FormInputText 

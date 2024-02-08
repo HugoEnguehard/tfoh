@@ -1,5 +1,5 @@
 // React imports
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import GreenButton from "../../components/GreenButton/GreenButton";
 
 // Redux imports
@@ -14,17 +14,25 @@ import { Box, Typography } from "@mui/material";
 
 // Interfaces
 import { ProfileForm } from "../../interfaces/ProfileForm";
+import { UserState } from "../../interfaces/UserState";
 
 const Profile: FC = () => {
     const dispatch = useAppDispatch();
     
-    const userData = useAppSelector((state: any) => state.user);
+    const userData: UserState = useAppSelector((state: any) => state.user);
 
     const [resultMessage, setResultMessage] = useState<string>("");
     const [formData, setFormData] = useState<ProfileForm>({
-        bio: userData.bio,
-        lovedJdr: userData.lovedJdr,
+        bio: "",
+        lovedJdr: "",
     });
+
+    useEffect(() => {        
+        setFormData({
+            bio: userData.bio || "",
+            lovedJdr: userData.favorite_jdr || "",
+        });
+    }, [userData]);
 
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { value, name } = e.target;
@@ -37,12 +45,11 @@ const Profile: FC = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log(formData);
 
         dispatch(setUser({
             ...userData, 
             bio: formData.bio,
-            lovedJdr: formData.lovedJdr,
+            favorite_jdr: formData.lovedJdr,
         }));
 
         setResultMessage("Profil mis à jour !");
@@ -62,7 +69,7 @@ const Profile: FC = () => {
                     <Box style={{marginLeft: '20px'}}>
                         <Styles.CustomTypographyBlack style={{fontSize: '40px'}}>{userData.username}</Styles.CustomTypographyBlack>
                         <Box>
-                            <Styles.CustomTypographyGrey width='100% !important'>Membre depuis le XX/XX/XXXX</Styles.CustomTypographyGrey>
+                            <Styles.CustomTypographyGrey width='100% !important'>Membre depuis le {userData.date_creation}</Styles.CustomTypographyGrey>
                         </Box>
                         <Box style={{display: 'flex', alignItems: 'center'}}>
                             <Styles.CustomTypographyGrey>Campagne jouées : X</Styles.CustomTypographyGrey>

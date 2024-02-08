@@ -52,8 +52,6 @@ const Signup: FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(formData);
-
         if(formData.password !== formData.confirmPassword) {
             setFormProblems({...formProblems, password: true, confirmPassword: true});
             setFormError('Les mots de passe doivent être identiques !');
@@ -66,19 +64,10 @@ const Signup: FC = () => {
         if(signUp.fulfilled.match(signUpResult)) {
             const signupData = signUpResult.payload as SignUpResult;
             if(signupData.success && signupData.user) {
-                dispatch(setUser({
-                    username: signupData.user.username,
-                    email: signupData.user.email,
-                    profilePicture: signupData.user.profilePicture,
-                    preference: signupData.user.preference,
-                    bio: signupData.user.bio,
-                    lovedJdr: signupData.user.lovedJdr,
-                }));
+                dispatch(setUser(signupData.user));
                 navigate("/profile")
             }
-            else if(signupData.message) {
-                setFormError(signupData.message);
-            } 
+            else if(signupData.message) setFormError(signupData.message);
             else console.log("An unattended error occured");
         }
     }

@@ -5,33 +5,45 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserState } from "../interfaces/UserState";
 
 const initialState: UserState = {
+    id: 0,
+    firstname: '',
+    lastname: '',
     username: '',
     email: '',
-    profilePicture: '',
-    preference: '',
+    date_creation: '',
     bio: '',
-    lovedJdr: '',
+    favorite_jdr: '',
+    preference: '',
+    profilePicture: '',
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<{ username: string, email: string, profilePicture: string, preference: string, bio: string, lovedJdr: string }>) {
+        setUser(state, action: PayloadAction<UserState>) {
+            state.id = action.payload.id;
+            state.firstname = action.payload.firstname;
+            state.lastname = action.payload.lastname;
             state.username = action.payload.username;
             state.email = action.payload.email;
-            state.profilePicture = action.payload.profilePicture;
-            state.preference = action.payload.preference;
+            state.date_creation = action.payload.date_creation;
             state.bio = action.payload.bio;
-            state.lovedJdr = action.payload.lovedJdr;
+            state.favorite_jdr = action.payload.favorite_jdr;
+            state.preference = action.payload.preference;
+            state.profilePicture = action.payload.profilePicture;
         },
         resetUser(state) {
+            state.id = 0;
+            state.firstname = '';
+            state.lastname = '';
             state.username = '';
             state.email = '';
-            state.profilePicture = '';
-            state.preference = '';
+            state.date_creation = '';
             state.bio = '';
-            state.lovedJdr = '';
+            state.favorite_jdr = '';
+            state.preference = '';
+            state.profilePicture = '';
         },
     },
     extraReducers: (builder) => {

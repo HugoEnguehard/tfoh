@@ -1,8 +1,12 @@
 export interface UserState {
+    id: number,
+    firstname: string,
+    lastname: string,
     username: string,
     email: string,
-    profilePicture: string,
-    preference: string,
+    date_creation: string,
     bio: string,
-    lovedJdr: string,
+    favorite_jdr: string,
+    preference: string,
+    profilePicture: string,
 }

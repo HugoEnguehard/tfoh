@@ -12,6 +12,9 @@ import SignOutResult from "../interfaces/SignOutResult.store";
 import SignupForm from "../interfaces/SignupForm";
 import SignUpResult from "../interfaces/SignUpResult.store";
 
+// Other imports
+import axios from 'axios';
+
 const initialState: AuthState = {
     authStatus: false,
 }
@@ -47,15 +50,19 @@ export const signUp = createAsyncThunk<SignUpResult, SignupForm>(
             return {
                 success: true,
                 user: {
+                    id: 0,
+                    firstname: '',
+                    lastname: '',
                     username: formData.username,
                     email: formData.email,
                     profilePicture: pp_b64,
                     preference: 'MJ',
                     bio: 'Je suis un champignon',
-                    lovedJdr: 'TOTK',
+                    date_creation: '',
+                    favorite_jdr: '',
                 }
             }
-        } catch (error: any) {
+        } catch (error: any) {            
             return {
                 success: false,
                 message: error.message,
@@ -68,25 +75,28 @@ export const signIn = createAsyncThunk<SignInResult, SigninForm>(
     "auth/signIn",
     async (formData: SigninForm) => {
         try {
-            // TODO : API REQUEST
+            const response = await axios.post('http://localhost:3050/api/users/signin', {
+                username: formData.username,
+                password: formData.password
+            });
             
-            return {
-                success: true,
-                user: {
-                    username: formData.username,
-                    email: "tempo@email.fr",
-                    profilePicture: pp_b64,
-                    preference: 'MJ',
-                    bio: 'Je suis un champignon',
-                    lovedJdr: 'TOTK',
+            if (response.status === 200) {
+                return {
+                    success: true,
+                    user: response.data.user,
+                }
+            } else {
+                return {
+                    success: false,
+                    message: response.data.message,
                 }
             }
-
         } catch (error: any) {
-            return {
-                success: false,
-                message: error.message,
-            }
+            return axios.isAxiosError(error)
+                ? (error.response && error.response.status === 401
+                    ? { success: false, message: error.response.data }
+                    : { success: false, message: error.message })
+                : { success: false, message: error.message };
         }
     }
 );
