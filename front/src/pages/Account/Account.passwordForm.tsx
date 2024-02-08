@@ -13,6 +13,8 @@ import {
 // Interfaces
 import AccoundPasswordForm from "../../interfaces/AccountPasswordForm";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { CheckPassword } from "../../utils/password";
+import { Typography } from "@mui/material";
 
 export const AccountPasswordFormComponent: FC = () => {
     const [formData, setFormData] = useState<AccoundPasswordForm>({
@@ -29,14 +31,18 @@ export const AccountPasswordFormComponent: FC = () => {
         console.log('Submit');
         
         if(formData.newPassword === formData.confirmPassword) {
-            setIsPasswordUpdated(true);
-            const dataToSend = {
-                newPassword: formData.newPassword,
-                oldPassword: formData.oldPassword,
+            if(CheckPassword(formData.newPassword)) {
+                setErrorMessage('');
+                setIsPasswordUpdated(true);
+                const dataToSend = {
+                    newPassword: formData.newPassword,
+                    oldPassword: formData.oldPassword,
+                }
+                // TODO : API Request
             }
-            // TODO : API Request
+            else setErrorMessage("Le nouveau mots de passe doit respecter les conditions minimales");
         }
-        else setErrorMessage("Les mots de passe doivent être identiques")
+        else setErrorMessage("Les mots de passe doivent être identiques");
 
     }
 
@@ -87,6 +93,21 @@ export const AccountPasswordFormComponent: FC = () => {
                         customStyle={{width: '300px', height: '50px', fontSize: '16px'}}
                         isSubmit 
                     />
+                </CustomGridColumn>
+                <CustomGridColumn ml='50px' mt='30px'>
+                    <Typography 
+                        style={{fontSize: '14px', color: '#707070', fontFamily: 'Hylia Serif'}}
+                    >
+                        Le mot de passe doit au moins contenir :
+                        <ul>
+                            <li>1 majuscule</li>
+                            <li>1 minuscule</li>
+                            <li>1 chiffre</li>
+                            <li>1 caractère spécial</li>
+                            <li>8 caractères minimum</li>
+                            <li>30 caractères maximum</li>
+                        </ul>
+                    </Typography>
                 </CustomGridColumn>
             </CustomGridRow>
         </form>

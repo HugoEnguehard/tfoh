@@ -5,7 +5,6 @@ import DividerVertical from "../../components/DividerVertical";
 import FormLabel from "../../components/FormLabel/FormLabel";
 import FormInputText from "../../components/InputText/InputText";
 import FormInputFileImage from "../../components/InputFileImage/InputFileImage";
-import DividerHorizontal from "../../components/DividerHorizontal";
 import FormInputSelect from "../../components/FormInputSelect";
 
 // Style imports
