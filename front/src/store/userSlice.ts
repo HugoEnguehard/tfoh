@@ -1,8 +1,10 @@
 // Redux imports
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Interfaces
 import { UserState } from "../interfaces/UserState";
+import axios from "axios";
+import EditUserResult from '../interfaces/EditUserResult';
 
 const initialState: UserState = {
     id: 0,
@@ -47,9 +49,35 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // Gérer les reducers supplémentaires si nécessaire
+        
     }
 });
+
+export const editUser = createAsyncThunk<EditUserResult, UserState>('user/edit', async (formData: UserState) => {
+    try {
+        const response = await axios.put('http://localhost:3050/api/users/edit', {
+            id: formData.id,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            username: formData.username,
+            email: formData.email,
+            bio: formData.bio,
+            favorite_jdr: formData.favorite_jdr,
+            preference: formData.preference,
+            profilePicture: formData.profilePicture,
+        });
+
+        if(response.status === 200) return { success: true, editedUser: response.data.user };
+        else return { success: false, message: response.data.message };
+        
+    } catch (error: any) {
+        return axios.isAxiosError(error)
+            ? (error.response && (error.response.status === 401 || error.response.status === 402)
+                ? { success: false, message: error.response.data }
+                : { success: false, message: error.message })
+            : { success: false, message: error.message };
+    }
+})
 
 export const { setUser, resetUser } = authSlice.actions;
 export default authSlice.reducer;

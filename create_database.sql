@@ -11,5 +11,6 @@ CREATE TABLE users
     date_creation VARCHAR(10) NOT NULL,  
     bio TEXT,  
     favorite_jdr VARCHAR(100),  
-    preference VARCHAR(250)
+    preference VARCHAR(250),
+    profile_pictue TEXT
 )

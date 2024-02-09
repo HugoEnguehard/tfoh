@@ -23,19 +23,24 @@ import { Box } from "@mui/material";
 // Interfaces
 import AccountGeneralForm from "../../interfaces/AccountGeneralForm";
 import { UserState } from "../../interfaces/UserState";
+import EditUserResult from "../../interfaces/EditUserResult";
+import { editUser, setUser } from "../../store/userSlice";
 
 export const AccountGeneralFormComponent: FC = () => {
+    const dispatch = useAppDispatch();
+
     const userData: UserState = useAppSelector((state: any) => state.user);
+    const [isGeneralUpdated, setIsGeneralUpdated] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const [formData, setFormData] = useState<AccountGeneralForm>({
         firstname: '',
-        lastname: '',
+        lastname:  '',
         email: '',
         username: '',
         profilePicture: '',
         preference: '-',
     });
-    const [isGeneralUpdated, setIsGeneralUpdated] = useState<boolean>(false);
 
     useEffect(() => {        
         setFormData({
@@ -48,10 +53,29 @@ export const AccountGeneralFormComponent: FC = () => {
         });
     }, [userData]);
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         console.log("Submitted");
         setIsGeneralUpdated(true);
+
+        const dataToSend = {
+            ...formData,
+            id: userData.id,
+            date_creation: userData.date_creation,
+            bio: userData.bio,
+            favorite_jdr: userData.favorite_jdr,
+        }
+
+        const editUserResult = await dispatch(editUser(dataToSend));
+
+        if(editUser.fulfilled.match(editUserResult)) {
+            const editUserData = editUserResult.payload as EditUserResult;
+            if (editUserData.success && editUserData.editedUser) {
+                console.log(editUserData.editedUser);
+                dispatch(setUser(editUserData.editedUser));
+            }
+            else setErrorMessage(editUserData.message as string);
+        }
     }
 
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {

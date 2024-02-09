@@ -32,7 +32,7 @@ router.post('/signup', async (req: Request, res: Response) => {
 
 router.put('/edit', async (req: Request, res: Response) => {
     try {
-        const { id, lastname, firstname, username, email, bio, favorite_jdr, preference } = req.body;
+        const { id, lastname, firstname, username, email, bio, favorite_jdr, preference, profilePicture } = req.body;
         const editedUser = await UserController.edit(id, lastname, firstname, username, email, bio, favorite_jdr, preference);
         
         if (editedUser === -1) res.status(401).send('Utilisateur inconnu');

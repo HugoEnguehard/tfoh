@@ -4,8 +4,6 @@ import { Avatar, Box, Divider, Grid, Typography } from "@mui/material";
 
 
 export const CustomGrid = styled(Grid)({
-    minWidth: '80vw',
-    width: '80vw',
 
     display: 'flex',
     flexDirection: 'column',
