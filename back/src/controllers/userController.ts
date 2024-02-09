@@ -3,7 +3,10 @@ import { UserService } from '../services/userService';
 import bcrypt from 'bcryptjs';
 
 export const UserController = {
-  signin: async (username: string, password: string) => {
+  signin: async (
+    username: string, 
+    password: string
+  ) => {
     try {
       const user = await UserService.findUserByUsernameAndPassword(username, password);
       if (user) {
@@ -16,7 +19,11 @@ export const UserController = {
       throw new Error('Erreur lors de la connexion');
     }
   },
-  signup: async (username: string, password: string, email: string) => {
+  signup: async (
+    username: string, 
+    password: string, 
+    email: string
+  ) => {
     try {
       // Check if email exists
       if(await UserService.findUserByEmail(email)) return -1;
@@ -33,6 +40,28 @@ export const UserController = {
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error);
       throw new Error('Erreur lors de l\'inscription');
+    }
+  },
+  edit: async (
+    id: number,
+    lastname: string, 
+    firstname: string, 
+    username: string, 
+    email: string, 
+    bio: string, 
+    favorite_jdr: string, 
+    preference: string
+  ) => {
+    try {
+      // Check if user exists using id
+      if(!await UserService.findUserById(id)) return -1;
+      // Edit user
+      const editedUser = UserService.editUser(id, lastname, firstname, username, email, bio, favorite_jdr, preference);
+
+      return editedUser;
+    } catch (error) {
+      console.error('Erreur lors de l\'edit du user:', error);
+      throw new Error('Erreur lors de l\'edit du user');
     }
   }
 }

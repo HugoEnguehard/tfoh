@@ -30,4 +30,18 @@ router.post('/signup', async (req: Request, res: Response) => {
     }
 });
 
+router.put('/edit', async (req: Request, res: Response) => {
+    try {
+        const { id, lastname, firstname, username, email, bio, favorite_jdr, preference } = req.body;
+        const editedUser = await UserController.edit(id, lastname, firstname, username, email, bio, favorite_jdr, preference);
+        
+        if (editedUser === -1) res.status(401).send('Utilisateur inconnu');
+        else if (editedUser === null) res.status(402).send('Erreur lors de la récupération de l\'utilisateur modifié')
+        else res.status(200).json({ message: 'Utilisateur modifié', user: editedUser });
+    } catch (error) {
+        console.error("Erreur lors de la modification du user", error);
+        res.status(500).json({ message: "Erreur lors de la modification du user" });
+    }
+});
+
 export default router;
