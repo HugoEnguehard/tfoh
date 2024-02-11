@@ -28,13 +28,13 @@ const Profile: FC = () => {
     const [isFormUpdated, setIsFormUpdated] = useState<boolean>(false);
     const [formData, setFormData] = useState<ProfileForm>({
         bio: "",
-        lovedJdr: "",
+        favorite_jdr: "",
     });
 
     useEffect(() => {        
         setFormData({
             bio: userData.bio || "",
-            lovedJdr: userData.favorite_jdr || "",
+            favorite_jdr: userData.favorite_jdr || "",
         });
     }, [userData]);
 
@@ -106,7 +106,7 @@ const Profile: FC = () => {
                 <Styles.CustomBoxRow>
                     <Styles.CustomTypographyBlack style={{width: '200px'}}>JDR préféré :</Styles.CustomTypographyBlack>
                     <Box style={{width: '90%'}}>
-                        <Styles.CustomInput type="text" name="lovedJdr" onChange={handleChangeText} value={formData.lovedJdr} />
+                        <Styles.CustomInput type="text" name="favorite_jdr" onChange={handleChangeText} value={formData.favorite_jdr} />
                     </Box>
                 </Styles.CustomBoxRow>
                 <Box style={{margin: '50px 0 0 20px'}}>

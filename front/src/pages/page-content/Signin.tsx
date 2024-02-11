@@ -8,6 +8,8 @@ import GreenNavLink from "../../components/GreenNavLink";
 import TypographyTitle from "../../components/TypographyTitle";
 import TypographyText from "../../components/TypographyText";
 import DividerHorizontal from "../../components/DividerHorizontal";
+import TextLink from "../../components/TextLink";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 // Redux imports
 import { useAppDispatch } from "../../store/store";
@@ -20,8 +22,6 @@ import * as Styles from '../../styles/Signin.styles';
 // Interfaces
 import SigninForm from "../../interfaces/SigninForm";
 import SignInResult from "../../interfaces/SignInResult.store";
-import TextLink from "../../components/TextLink";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 // Material imports
 

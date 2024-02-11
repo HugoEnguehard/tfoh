@@ -1,4 +1,4 @@
 export interface ProfileForm {
     bio: string,
-    lovedJdr: string,
+    favorite_jdr: string,
 }
