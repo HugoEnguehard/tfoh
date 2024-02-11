@@ -4,8 +4,6 @@ import { FC } from "react";
 // Style imports
 import * as Styles from '../../../styles/LandingLayoutFooter.styles';
 
-
-
 const LandingLayoutHeader: FC = () => {
 
     return (

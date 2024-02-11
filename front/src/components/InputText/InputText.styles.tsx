@@ -1,6 +1,5 @@
 // Material imports
-import { Box, Input, styled } from "@mui/material";
-
+import { Box, Button, Input, styled } from "@mui/material";
 
 export const CustomBox = styled(Box)({
     display: 'flex',
@@ -15,4 +14,14 @@ export const CustomInput = styled(Input)({
     margin: '10px',
     width: '100%',
     fontFamily: 'Hylia Serif',
+});
+
+export const CustomEyeButton = styled(Button)({
+    minWidth: '30px',
+    padding: '0',
+    marginRight: '5px',
+
+    "& svg": {
+        color: '#278527',
+    },
 });

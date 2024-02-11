@@ -3,6 +3,13 @@ import { FC, FormEvent, useState } from "react";
 import FormInputText from "../../components/InputText/InputText";
 import FormLabel from "../../components/FormLabel/FormLabel";
 import GreenButton from "../../components/GreenButton/GreenButton";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+
+// Material imports
+import { Typography } from "@mui/material";
+
+// Redux imports
+import { useAppSelector } from "../../store/store";
 
 // Style imports
 import {
@@ -12,11 +19,15 @@ import {
 
 // Interfaces
 import AccoundPasswordForm from "../../interfaces/AccountPasswordForm";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { UserState } from "../../interfaces/UserState";
+
+// Other imports
 import { CheckPassword } from "../../utils/password";
-import { Typography } from "@mui/material";
+import axios from "axios";
 
 export const AccountPasswordFormComponent: FC = () => {
+    const userData: UserState = useAppSelector((state: any) => state.user);
+
     const [formData, setFormData] = useState<AccoundPasswordForm>({
         newPassword: '',
         confirmPassword: '',
@@ -28,22 +39,29 @@ export const AccountPasswordFormComponent: FC = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Submit');
         
         if(formData.newPassword === formData.confirmPassword) {
             if(CheckPassword(formData.newPassword)) {
-                setErrorMessage('');
-                setIsPasswordUpdated(true);
-                const dataToSend = {
-                    newPassword: formData.newPassword,
-                    oldPassword: formData.oldPassword,
+                try {
+                    const response = await axios.put('http://localhost:3050/api/users/change-password', {
+                        id: userData.id,
+                        newPassword: formData.newPassword,
+                        oldPassword: formData.oldPassword,
+                    });
+
+                    if(response.status === 200) {
+                        setIsPasswordUpdated(true);
+                        setFormData({ oldPassword: '', newPassword: '', confirmPassword: '' });
+                        setErrorMessage('');
+                    }
+                } catch (error: any) {
+                    if (error.response && (error.response.status === 401 || error.response.status === 402)) setErrorMessage(error.response.data);
+                    else setErrorMessage(error.message);
                 }
-                // TODO : API Request
             }
             else setErrorMessage("Le nouveau mots de passe doit respecter les conditions minimales");
         }
         else setErrorMessage("Les mots de passe doivent être identiques");
-
     }
 
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +79,16 @@ export const AccountPasswordFormComponent: FC = () => {
             <CustomGridRow>
                 <CustomGridColumn mb="100px">
                     <ErrorMessage text={errorMessage} />
+                    <FormLabel label="Ancien mot de passe :" htmlFor="oldPassword" />
+                    <FormInputText 
+                        name="oldPassword" 
+                        handleChange={handleChangeText} 
+                        formData={formData} 
+                        placeholder="**********" 
+                        isPassword
+                        isRequired
+                    />
+                    <br />
                     <FormLabel label="Nouveau mot de passe :" htmlFor="newPassword" />
                     <FormInputText 
                         name="newPassword" 
@@ -81,21 +109,14 @@ export const AccountPasswordFormComponent: FC = () => {
                         isRequired
                     />
                     <br />
-                    <FormLabel label="Ancien mot de passe :" htmlFor="oldPassword" />
-                    <FormInputText 
-                        name="oldPassword" 
-                        handleChange={handleChangeText} 
-                        formData={formData} 
-                        placeholder="**********" 
-                        isPassword
-                        isRequired
-                    />
-                    <br />
                     <GreenButton 
                         label={`Changer le mot de passe ${isPasswordUpdated ? '✓' : ''}`} 
                         customStyle={{width: '300px', height: '50px', fontSize: '16px'}}
                         isSubmit 
                     />
+                    <Typography style={{fontSize: '14px', color: '#278527', fontFamily: 'Hylia Serif'}}>
+                        {isPasswordUpdated ? 'Mot de passe mis à jour !' : ''}
+                    </Typography>
                 </CustomGridColumn>
                 <CustomGridColumn ml='50px' mt='30px'>
                     <Typography 

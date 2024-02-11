@@ -44,4 +44,19 @@ router.put('/edit', async (req: Request, res: Response) => {
     }
 });
 
+router.put('/change-password', async (req: Request, res: Response) => {
+    try {
+        const { id, oldPassword, newPassword } = req.body;
+        const changeResult = await UserController.changePassword(id, oldPassword, newPassword);
+
+        if(changeResult === -1) res.status(401).send('Utilisateur inconnu');
+        else if(changeResult === -2) res.status(402).send('Mot de passe incorrecte');
+        else if (changeResult) res.status(200).json({ message: 'Mot de passe mis à jour' });
+        else throw new Error("Erreur lors du changement de mot de passe");
+    } catch (error) {
+        console.log("Erreur lors du changement de mot de passe", error);
+        res.status(500).json({ message: "Erreur lors du changement de mot de passe"});
+    }
+});
+
 export default router;

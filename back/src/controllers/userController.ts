@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 export const UserController = {
   signin: async (
     username: string, 
-    password: string
+    password: string,
   ) => {
     try {
       const user = await UserService.findUserByUsernameAndPassword(username, password);
@@ -18,7 +18,7 @@ export const UserController = {
   signup: async (
     username: string, 
     password: string, 
-    email: string
+    email: string,
   ) => {
     try {
       // Check if email exists
@@ -46,7 +46,7 @@ export const UserController = {
     email: string, 
     bio: string, 
     favorite_jdr: string, 
-    preference: string
+    preference: string,
   ) => {
     try {
       // Check if user exists using id
@@ -58,6 +58,23 @@ export const UserController = {
     } catch (error) {
       console.error('Erreur lors de l\'edit du user:', error);
       throw new Error('Erreur lors de l\'edit du user');
+    }
+  },
+  changePassword: async (
+    id: number,
+    oldPassword: string, 
+    newPassword: string,
+  ) => {
+    try {
+      // Check if user exists
+      if(!await UserService.findUserById(id)) return -1;
+      // Check if old password is correct
+      if(!await UserService.checkPassword(id, oldPassword)) return -2;
+      // Change user password to new password
+      return UserService.changePassword(id, newPassword);  
+    } catch (error) {
+      console.error('Erreur lors du changement du mot de passe :', error);
+      throw new Error('Erreur lors du changement du mot de passe');
     }
   }
 }

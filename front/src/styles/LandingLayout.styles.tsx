@@ -10,6 +10,7 @@ export const CustomGrid = styled(Grid)({
     display: 'flex',
     width: '100%',
     height: '80vh',
+    minHeight: '750px',
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',

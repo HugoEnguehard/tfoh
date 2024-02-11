@@ -1,7 +1,8 @@
 import { User } from '../models/userModel';
 import { pool } from '../database';
 import bcrypt from 'bcryptjs';
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import UserPasswordRow from '../interfaces/checkPassword.type';
 
 export const UserService = {
     findUserByUsernameAndPassword: async (username: string, password: string): Promise<User | null> => {
@@ -93,6 +94,35 @@ export const UserService = {
         } catch (error) {
             console.error('Erreur lors de la modification de l\'utilisateur :', error);
             throw new Error('Erreur lors de la modification de l\'utilisateur')
+        }
+    },
+    checkPassword: async (
+        id: number, 
+        oldPassword: string,
+    ): Promise<boolean> => {
+        try {
+            const [rows] = await pool.query<UserPasswordRow[]>(`SELECT password from users WHERE id = ?`, [id]);
+
+            if(Array.isArray(rows) && rows.length > 0) return await bcrypt.compare(oldPassword, rows[0].password);
+            else return false;
+        } catch (error) {
+            console.error("Erreur lors de la vérification du mot de passe :", error);
+            throw new Error("Erreur lors de la vérification du mot de passe");
+        }
+    },
+    changePassword: async (
+        id: number,
+        newPassword: string,
+    ) : Promise<boolean> => {
+        try {
+            const hashedPassword = await bcrypt.hashSync(newPassword, 10);
+            const [result] = await pool.execute<ResultSetHeader>('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id]);
+
+            if (result.affectedRows === 1) return true;
+            else return false;
+        } catch (error) {
+            console.error("Erreur lors du changement du mot de passe dans la bdd :", error);
+            throw new Error("Erreur lros du changement du mot de passe dans la bdd");
         }
     }
 }

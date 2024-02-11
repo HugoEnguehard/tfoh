@@ -9,7 +9,7 @@ export const CustomGrid = styled(Grid)({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '90vh',
-    width: '100vw',    
+    width: '100%',    
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
