@@ -1,0 +1,1 @@
+export { PersonnagesPage as default } from './Personnages.pages';

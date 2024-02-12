@@ -3,7 +3,7 @@ import { FC } from "react";
 import MenuNavLink from "../../../components/MenuNavLink";
 
 // Style imports
-import * as Styles from '../../../styles/ProfileSidebar.styles';
+import * as Styles from './ProfileSidebar.styles';
 
 
 const ProfileSidebar: FC = () => {
@@ -14,7 +14,7 @@ const ProfileSidebar: FC = () => {
                     <MenuNavLink url="/profile" label="GENERAL" />
                     <MenuNavLink url="/account" label="MON COMPTE" />
                     <MenuNavLink url="/characters" label="PERSONNAGES" />
-                    <MenuNavLink url="/campaigns" label="CAMPAGNES" />
+                    <MenuNavLink url="/campaignes" label="CAMPAGNES" />
                     <MenuNavLink url="/friends" label="AMIS" />
                 </Styles.CustomNavTop>
                 <Styles.CustomNavBottom style={{marginBottom: '30px'}}>

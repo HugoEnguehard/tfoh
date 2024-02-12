@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 // Style imports
-import * as Styles from '../../../styles/SigninLayoutHeader.styles';
+import * as Styles from './SigninLayoutHeader.styles';
 
 
 const SigninLayoutHeader: FC = () => {

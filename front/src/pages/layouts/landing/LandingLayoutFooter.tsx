@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 // Style imports
-import * as Styles from '../../../styles/LandingLayoutFooter.styles';
+import * as Styles from './LandingLayoutFooter.styles';
 
 const LandingLayoutHeader: FC = () => {
 

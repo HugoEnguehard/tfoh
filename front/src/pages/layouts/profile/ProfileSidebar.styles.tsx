@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 
 // Image imports
-import backgroundImage from '../images/profile-bg-bleu.png';
+import backgroundImage from '../../../images/profile-bg-bleu.png';
 
 export const CustomGrid = styled(Grid)({
     minWidth: '20vw',

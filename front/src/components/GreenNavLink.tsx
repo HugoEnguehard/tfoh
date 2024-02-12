@@ -15,7 +15,6 @@ const CustomNavLink = styled(NavLink)({
     borderRadius: '10px',
     fontSize: '20px',
     transition: '.5s',
-    minWidth: '200px',
 
     "&:hover": {
         color: '#278527',
@@ -30,11 +29,12 @@ interface GreenNavLinkProps {
     width: string,
     height: string,
     to: string,
+    size?: string,
 }
 
-const GreenNavLink: FC<GreenNavLinkProps> = ({ label, width, height, to }: GreenNavLinkProps) => {
+const GreenNavLink: FC<GreenNavLinkProps> = ({ label, width, height, to, size = '20' }: GreenNavLinkProps) => {
     return (
-        <CustomNavLink to={to} style={{width: `${width}px`, height: `${height}px`}} reloadDocument>
+        <CustomNavLink to={to} style={{width: `${width}px`, height: `${height}px`, fontSize: `${size}px`}} reloadDocument>
             {label}
         </CustomNavLink>
     );

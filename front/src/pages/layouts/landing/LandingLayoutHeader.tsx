@@ -4,7 +4,7 @@ import GreenNavLink from "../../../components/GreenNavLink";
 import RedNavLink from "../../../components/RedNavLink";
 
 // Style imports
-import * as Styles from '../../../styles/LandingLayoutHeader.styles';
+import * as Styles from './LandingLayoutHeader.styles';
 
 // Redux imports
 import { useAppSelector } from "../../../store/store";

@@ -7,7 +7,7 @@ import { Typography, styled } from "@mui/material";
 // Interfaces
 interface TypographyTextProps {
     size?: string,
-    text: string,
+    text: JSX.Element | string,
     isHyliaSerif?: boolean,
     isCentered?: boolean,
     isGrey?: boolean,
