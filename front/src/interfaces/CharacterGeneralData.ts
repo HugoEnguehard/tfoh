@@ -5,5 +5,5 @@ export default interface CharacterGeneralData
     image: string,
     name: string,
     campaign: string,
-    creation_date: string,
+    date_creation: string,
 }

@@ -1,4 +1,4 @@
-import { UserService } from '../services/userService';
+import { UserServices } from '../services/userService';
 import bcrypt from 'bcryptjs';
 
 export const UserController = {
@@ -7,7 +7,7 @@ export const UserController = {
     password: string,
   ) => {
     try {
-      const user = await UserService.findUserByUsernameAndPassword(username, password);
+      const user = await UserServices.findUserByUsernameAndPassword(username, password);
       if (user)  return user;
       else return null;
     } catch (error) {
@@ -22,15 +22,15 @@ export const UserController = {
   ) => {
     try {
       // Check if email exists
-      if(await UserService.findUserByEmail(email)) return -1;
+      if(await UserServices.findUserByEmail(email)) return -1;
       // Check if usernames exists
-      if(await UserService.findUserByUsername(username)) return -2;
+      if(await UserServices.findUserByUsername(username)) return -2;
       // Generate creation date
       const currentDate = new Date().toLocaleDateString('fr-FR');
       // Hash password
       const hashedPassword = bcrypt.hashSync(password, 10);
       // Generate new user
-      const newUser = await UserService.createNewUser(username, hashedPassword, email, currentDate);
+      const newUser = await UserServices.createNewUser(username, hashedPassword, email, currentDate);
       // Return new user
       return newUser;
     } catch (error) {
@@ -50,9 +50,9 @@ export const UserController = {
   ) => {
     try {
       // Check if user exists using id
-      if(!await UserService.findUserById(id)) return -1;
+      if(!await UserServices.findUserById(id)) return -1;
       // Edit user
-      const editedUser = UserService.editUser(id, lastname, firstname, username, email, bio, favorite_jdr, preference);
+      const editedUser = UserServices.editUser(id, lastname, firstname, username, email, bio, favorite_jdr, preference);
 
       return editedUser;
     } catch (error) {
@@ -67,11 +67,11 @@ export const UserController = {
   ) => {
     try {
       // Check if user exists
-      if(!await UserService.findUserById(id)) return -1;
+      if(!await UserServices.findUserById(id)) return -1;
       // Check if old password is correct
-      if(!await UserService.checkPassword(id, oldPassword)) return -2;
+      if(!await UserServices.checkPassword(id, oldPassword)) return -2;
       // Change user password to new password
-      return UserService.changePassword(id, newPassword);  
+      return UserServices.changePassword(id, newPassword);  
     } catch (error) {
       console.error('Erreur lors du changement du mot de passe :', error);
       throw new Error('Erreur lors du changement du mot de passe');

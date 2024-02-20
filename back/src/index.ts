@@ -1,10 +1,11 @@
 import express from 'express';
 import { pool } from './database';
 import userRoutes from './routes/userRoutes';
+import characterRoutes from './routes/characterRoutes';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3050;
+const PORT = process.env.PORT || 3080;
 
 // Middleware pour parser le corps des requêtes en JSON
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(cors());
 
 // Utilisation du routeur userRoutes
 app.use('/api/users', userRoutes);
+app.use('/api/characters', characterRoutes);
 
 // Connexion à la base de données
 pool.getConnection()

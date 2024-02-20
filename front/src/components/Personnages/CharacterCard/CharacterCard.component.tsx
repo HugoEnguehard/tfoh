@@ -41,7 +41,7 @@ export const CharacterCardComponent: FC<CharacterCardComponentProps> = ({ charac
             <CustomBoxText>
                 <TypographyTitle text={characterData.name} size="20" isUnderlined />
                 <TypographyText isGrey isHyliaSerif size="16" text={<>Campagne : {characterData.campaign}</>} />
-                <TypographyText isGrey isHyliaSerif size="16" text={<>Créé le {characterData.creation_date}</>} />
+                <TypographyText isGrey isHyliaSerif size="16" text={<>Créé le {characterData.date_creation}</>} />
             </CustomBoxText>
             <CustomBoxButtons>
                 <CustomButtonFavorite onClick={updateFavorite}>

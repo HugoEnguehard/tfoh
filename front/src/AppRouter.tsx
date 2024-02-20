@@ -17,8 +17,8 @@ const Signup = lazy(() => import('./pages/page-content/Signup'));
 const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
 const Profile = lazy(() => import('./pages/page-content/Profile'));
-const Account = lazy(() => import('./pages/Account/Account.page'));
-const Personnages = lazy(() => import('./pages/Personnages'));
+const Account = lazy(() => import('./pages/account/Account.page'));
+const Personnages = lazy(() => import('./pages/personnages'));
 
 // Page layout imports
 const LandingLayout = lazy(()=>import ('./pages/layouts/LandingLayout'));

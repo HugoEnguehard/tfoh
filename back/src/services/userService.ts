@@ -1,10 +1,10 @@
 import { User } from '../models/userModel';
 import { pool } from '../database';
 import bcrypt from 'bcryptjs';
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import UserPasswordRow from '../interfaces/checkPassword.type';
 
-export const UserService = {
+export const UserServices = {
     findUserByUsernameAndPassword: async (username: string, password: string): Promise<User | null> => {
         try {
             const [rows] = await pool.query(`SELECT * FROM users WHERE UPPER(username) = ?`, [username.toUpperCase()]);
@@ -63,7 +63,7 @@ export const UserService = {
             const [result] = await pool.execute<ResultSetHeader>('INSERT INTO users (username, email, password, date_creation) VALUES (?, ?, ?, ?)', [username, email, password, dateCreation]);
 
             if (result.affectedRows === 1) {
-                const newUser = await UserService.findUserByEmail(email);
+                const newUser = await UserServices.findUserByEmail(email);
                 if(newUser) return newUser;
                 else throw Error("Une erreur s'est produite lors de la récupération du nouvel utilisateur")
             } 
@@ -87,7 +87,7 @@ export const UserService = {
             const [result] = await pool.execute<ResultSetHeader>('UPDATE users SET firstname = ?, lastname = ?, username = ?, email = ?, bio = ?, favorite_jdr = ?, preference = ? WHERE id = ?', [firstname, lastname, username, email, bio, favorite_jdr, preference, id]);
 
             if (result.affectedRows === 1) {
-                const editedUser = await UserService.findUserById(id);
+                const editedUser = await UserServices.findUserById(id);
                 if (editedUser) return editedUser;
                 else throw Error("Une erreur s'est produite lors de la récupération de l'utilisateur modifié");
             } else return null;
