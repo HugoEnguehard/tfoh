@@ -1,6 +1,5 @@
-import { CharacterNotFoundError, UserNotFoundError } from "../exceptions/exceptions";
-import { CharacterServices } from "../services/characterService";
-import { UserServices } from "../services/userService";
+import { CharacterServices } from "../services/Character.service";
+import UserServices from "../services/User.service";
 
 export const CharacterController = {
     create: async (
@@ -12,14 +11,14 @@ export const CharacterController = {
             // Check parameters
             if (!name || !id_campaign || !id_user) throw new Error('Données invalides : nom, id_campaign et id_user sont obligatoires');
             // Check if user exists
-            if(!await UserServices.findUserById(id_user)) throw new UserNotFoundError('Utilisateur inconnu');
+            // if(!await UserServices.findUserById(id_user)) throw new UserNotFoundError('Utilisateur inconnu');
             // Generate creation date
             const currentDate = new Date().toLocaleDateString('fr-FR');
             // Generate new user
             const newCharacter = await CharacterServices.createCharacter(name, id_campaign, id_user, currentDate);
             // Return new user
-            if(newCharacter) return newCharacter;
-            else throw new Error("Erreur lors de la création du personnage")
+            // if(newCharacter) return newCharacter;
+            // else throw new Error("Erreur lors de la création du personnage")
         } catch (error) {
             throw error;
         }
@@ -31,7 +30,7 @@ export const CharacterController = {
     ) => {
         try {
             if (!id || !name) throw new Error('Données invalides : id, is_favorite et name sont obligatoires');
-            if(!await CharacterServices.findCharacterById(id)) throw new CharacterNotFoundError('Personnage inconnu');
+            // if(!await CharacterServices.findCharacterById(id)) throw new CharacterNotFoundError('Personnage inconnu');
 
             const editedCharacter = await CharacterServices.editCharacter(id, is_favorite, name);
             return editedCharacter;
@@ -55,7 +54,7 @@ export const CharacterController = {
     ) => {
         try {
             if(!id_user) throw new Error('Données invalides : id est obligatoire');
-            if(!await UserServices.findUserById(id_user)) throw new UserNotFoundError('Utilisateur inconnu');
+            // if(!await UserServices.findUserById(id_user)) throw new UserNotFoundError('Utilisateur inconnu');
             const characters = await CharacterServices.findCharacterByUserId(id_user);
             return characters;
         } catch (error) {

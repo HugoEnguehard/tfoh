@@ -14,9 +14,9 @@ import { Box, Typography } from "@mui/material";
 
 // Interfaces
 import { ProfileForm } from "../../interfaces/ProfileForm";
-import { UserState } from "../../interfaces/UserState";
+import UserState from "../../interfaces/UserState.interface";
 import EditUserResult from "../../interfaces/EditUserResult";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const Profile: FC = () => {
     const dispatch = useAppDispatch();

@@ -12,7 +12,7 @@ import {
 // Interfaces
 import CharacterGeneralData from "../../interfaces/CharacterGeneralData";
 import axios from "axios";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { useAppSelector } from "../../store/store";
 
 export const PersonnagesCharacters: FC = () => {

@@ -1,4 +1,4 @@
-import { UserState } from "./UserState";
+import UserState from "./UserState.interface";
 
 export default interface SignInResult {
     success: boolean,

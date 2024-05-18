@@ -1,32 +1,14 @@
 // React imports
 import { FC, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-// Redux imports
-import { useAppDispatch } from "../../store/store";
-import { signOut } from "../../store/authSlice";
-import { resetUser } from "../../store/userSlice";
-
-// Interfaces
-import SignOutResult from "../../interfaces/SignOutResult.store";
+// Other imports
+import { useAuth } from "../../context/AuthProvider.context";
 
 
 const Signout: FC = () => {
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    const { logout } = useAuth();
 
-    const handleSignOut = async () => {
-        const signOutResult = await dispatch(signOut());
-
-        if(signOut.fulfilled.match(signOutResult)) {
-            const signoutData = signOutResult.payload as SignOutResult;
-            if (signoutData.success) {
-                dispatch(resetUser());
-                navigate("/signin");
-            }
-            else console.log(signoutData.message);
-        }
-    }
+    const handleSignOut = () => logout();
 
     useEffect(() => {
         handleSignOut();

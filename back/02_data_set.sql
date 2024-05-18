@@ -1,3 +1,5 @@
+USE tfoh;
+
 -- Insérer des utilisateurs
 INSERT INTO users (firstname, lastname, username, email, password, date_creation, bio, favorite_jdr, preference, profile_picture) 
 VALUES 

@@ -3,7 +3,7 @@ import { FC, FormEvent, useState } from "react";
 import FormInputText from "../../components/InputText/InputText";
 import FormLabel from "../../components/FormLabel/FormLabel";
 import GreenButton from "../../components/GreenButton/GreenButton";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 // Material imports
 import { Typography } from "@mui/material";
@@ -19,7 +19,7 @@ import {
 
 // Interfaces
 import AccoundPasswordForm from "../../interfaces/AccountPasswordForm";
-import { UserState } from "../../interfaces/UserState";
+import UserState from "../../interfaces/UserState.interface";
 
 // Other imports
 import { CheckPassword } from "../../utils/password";

@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "db:build": "docker build -t dbtfoh:tag -f DockerFile.mysql .",
+    "db:start": "docker run -d --name DataBaseTFOH -p 3306:3306 --env-file .env dbtfoh:tag",
+    "db:stop": "docker stop DataBaseTFOH",
+    "db:remove:container": "docker rm DataBaseTFOH",
+    "db:remove:image": "docker rmi dbtfoh:tag"
   },
   "keywords": [],
   "author": "",
@@ -19,9 +24,19 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/sequelize": "^4.28.20",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "mysql2": "^3.9.1"
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.37.3"
   }
 }

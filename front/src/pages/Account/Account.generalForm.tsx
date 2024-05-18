@@ -22,7 +22,7 @@ import { Box } from "@mui/material";
 
 // Interfaces
 import AccountGeneralForm from "../../interfaces/AccountGeneralForm";
-import { UserState } from "../../interfaces/UserState";
+import UserState from "../../interfaces/UserState.interface";
 import EditUserResult from "../../interfaces/EditUserResult";
 import { editUser, setUser } from "../../store/userSlice";
 

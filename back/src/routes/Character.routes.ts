@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
-import { CharacterController } from '../controllers/characterController';
-import { CharacterNotFoundError, UserNotFoundError } from '../exceptions/exceptions';
+import { CharacterController } from '../controllers/Character.Controller';
 
 const router = express.Router();
 
@@ -12,8 +11,8 @@ router.post('/', async (req: Request, res: Response) => {
         res.status(200).json({ message: 'Création réussie', character});
     } catch (error) {
         console.error('Erreur lors de la création du personnage :', error);
-        if (error instanceof UserNotFoundError) res.status(404).json({ message: error.message });
-        else res.status(500).json({ message: 'Erreur lors de la création du personnage' });
+        // if (error instanceof UserNotFoundError) res.status(404).json({ message: error.message });
+        // else res.status(500).json({ message: 'Erreur lors de la création du personnage' });
     }
 });
 
@@ -25,8 +24,8 @@ router.put('/', async (req: Request, res: Response) => {
         res.status(200).json({ message: 'Modification réussie', character});
     } catch (error) {
         console.error('Erreur lors de la modification du personnage :', error);
-        if (error instanceof CharacterNotFoundError) res.status(404).json({ message: error.message });
-        else res.status(500).json({ message: 'Erreur lors de la modification du personnage' });
+        // if (error instanceof CharacterNotFoundError) res.status(404).json({ message: error.message });
+        // else res.status(500).json({ message: 'Erreur lors de la modification du personnage' });
     }
 });
 
@@ -38,8 +37,8 @@ router.get('/unique', async (req: Request, res: Response) => {
         res.status(200).json({ message: 'Personnage trouvé', character });
     } catch (error) {
         console.error('Erreur lors de la récupération du personnage :', error);
-        if (error instanceof CharacterNotFoundError) res.status(404).json({ message: error.message });
-        else res.status(500).json({ message: 'Erreur lors de la récupération du personnage' });
+        // if (error instanceof CharacterNotFoundError) res.status(404).json({ message: error.message });
+        // else res.status(500).json({ message: 'Erreur lors de la récupération du personnage' });
     }
 });
 
@@ -52,8 +51,8 @@ router.get('/', async (req: Request, res: Response) => {
         res.status(200).json({ message: 'Récupération réussie', characters});
     } catch (error) {
         console.error('Erreur lors de la récupération des personnages :', error);
-        if (error instanceof UserNotFoundError) res.status(404).json({ message: error.message });
-        else res.status(500).json({ message: 'Erreur lors de la récupération des personnages' });
+        // if (error instanceof UserNotFoundError) res.status(404).json({ message: error.message });
+        // else res.status(500).json({ message: 'Erreur lors de la récupération des personnages' });
     }
 });
 

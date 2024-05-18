@@ -8,29 +8,22 @@ import GreenButton from "../../components/GreenButton/GreenButton";
 import GreenNavLink from "../../components/GreenNavLink";
 import FormInputCheckbox from "../../components/FormInputCheckbox";
 import TextLink from "../../components/TextLink";
-import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import SignupForm from "../../interfaces/SignupForm";
 import FormLabel from "../../components/FormLabel/FormLabel";
 import FormInputText from "../../components/InputText/InputText";
 
-// Redux imports
-import { useAppDispatch } from "../../store/store";
-import { signUp } from "../../store/authSlice";
-import { setUser } from "../../store/userSlice";
-
 // Style imports
 import * as Styles from '../../styles/Signup.styles';
-
-// Interfaces
-import SignUpResult from "../../interfaces/SignUpResult.store";
 
 // Material imports
 import { Typography } from "@mui/material";
 import { CheckPassword } from "../../utils/password";
+import { useAuth } from "../../context/AuthProvider.context";
 
 const Signup: FC = () => {
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch()
+    const { register } = useAuth();
+    const [errorMessage, setErrorMessage] = useState<string>("");
     
     const [formData, setFormData] = useState<SignupForm>({
         username: '',
@@ -65,17 +58,9 @@ const Signup: FC = () => {
         }
         else setFormProblems({...formProblems, password: false, confirmPassword: false});
 
-        const signUpResult = await dispatch(signUp(formData));
+        const signUpResult = await register(formData);
 
-        if(signUp.fulfilled.match(signUpResult)) {
-            const signupData = signUpResult.payload as SignUpResult;
-            if(signupData.success && signupData.user) {
-                dispatch(setUser(signupData.user));
-                navigate("/profile");
-            }
-            else if(signupData.message) setFormError(signupData.message);
-            else console.log("An unattended error occured");
-        }
+        if(signUpResult) setErrorMessage(signUpResult);
     }
 
     const handleChangeInputText = (e: React.ChangeEvent<HTMLInputElement>) => {

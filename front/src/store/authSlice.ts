@@ -1,19 +1,15 @@
-// Redux imports
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-// Test data
-import pp_b64 from "../data_test/pp_b64";
+// React imports
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // Interfaces
-import { AuthState } from "../interfaces/AuthState";
-import SigninForm from "../interfaces/SigninForm";
-import SignInResult from "../interfaces/SignInResult.store";
-import SignOutResult from "../interfaces/SignOutResult.store";
-import SignupForm from "../interfaces/SignupForm";
-import SignUpResult from "../interfaces/SignUpResult.store";
+import AuthUserResult from "../interfaces/AuthUserResult.interface";
+import UserDataLogin from "../interfaces/UserDataLogin.interface";
+import AuthState from "../interfaces/AuthState.interface";
 
 // Other imports
-import axios from 'axios';
+import axios, { AxiosError } from "axios";
+import SignupUserResult from "../interfaces/SignupUserResult.interface";
+import SignupData from "../interfaces/SignupData.interface";
 
 const initialState: AuthState = {
     authStatus: false,
@@ -23,82 +19,53 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setAuthStatus(state, action: PayloadAction<boolean>) {
+        setAuthStatus(state, action) {
             state.authStatus = action.payload;
         }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(signUp.fulfilled, (state, action) => {
-            if(action.payload.success) state.authStatus = true;
-            else state.authStatus = false;
-        });
-        builder.addCase(signIn.fulfilled, (state, action) => {
-            if(action.payload.success) state.authStatus = true;
-            else state.authStatus = false;
-        });
-        builder.addCase(signOut.fulfilled, (state, action) => {
-            if(action.payload.success) state.authStatus = false;
-        });
     }
 });
 
-export const signUp = createAsyncThunk<SignUpResult, SignupForm>(
-    "auth/signUp",
-    async(formData: SignupForm) => 
-    {
-        try {
-            const response = await axios.post('http://localhost:3050/api/users/signup', {
-                username: formData.username,
-                password: formData.password,
-                email: formData.email,
-            });
+export const authentificateUser = createAsyncThunk<
+    AuthUserResult,
+    UserDataLogin
+>("auth/authentificate", async (userData: UserDataLogin) => {
+    try {
+        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`, {
+            username: userData.username,
+            password: userData.password,
+        })
 
-            if(response.status === 200) return { success: true, user: response.data.user }
-            else return { success: false, message: response.data.message };
-        } catch (error: any) {            
-            return axios.isAxiosError(error)
-                ? (error.response && (error.response.status === 401 || error.response.status === 402 || error.response.status === 403)
-                    ? { success: false, message: error.response.data }
-                    : { success: false, message: error.message })
-                : { success: false, message: error.message };
-        }
+        if (apiResponse.status === 200) return { result: true }
+        else return { result: false }
+
+    } catch (error: any) {
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.statusText }
+        else return { result: false, message: error.message }
     }
-)
+})
 
-export const signIn = createAsyncThunk<SignInResult, SigninForm>(
-    "auth/signIn",
-    async (formData: SigninForm) => 
-    {
-        try {
-            const response = await axios.post('http://localhost:3050/api/users/signin', {
-                username: formData.username,
-                password: formData.password,
-            });
-            
-            if (response.status === 200) return { success: true, user: response.data.user };
-            else return { success: false, message: response.data.message };
-        } catch (error: any) {
-            return axios.isAxiosError(error)
-                ? (error.response && error.response.status === 401
-                    ? { success: false, message: error.response.data }
-                    : { success: false, message: error.message })
-                : { success: false, message: error.message };
-        }
+export const registerUser = createAsyncThunk<
+    SignupUserResult,
+    SignupData
+>("auth/register", async (userData: SignupData) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, userData)
+
+        if(response.status === 200) return { response: true }
+        else return { response: false, message: "une erreur est survenue" }
+    } catch (error: any) {
+        return { response: false, message: error.message }
     }
-);
+})
 
-export const signOut = createAsyncThunk<SignOutResult> (
-    "auth/signOut",
-    async () => 
-    {
-        try {
-            return { success: true }
-        } catch (error: any) {
-            return { success: false, message: error.message }
-        }
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+    try {
+        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`)
+        if (apiResponse.status === 200) return true
+        else return false
+    } catch (error) {
+        return false
     }
-);
+})
 
-export const { setAuthStatus } = authSlice.actions;
-export const authReducer = authSlice.reducer;
-export default authReducer;
+export default authSlice.reducer;

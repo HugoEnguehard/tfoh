@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS tfoh;
 
+USE tfoh;
+
 CREATE TABLE users 
 (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -12,7 +14,9 @@ CREATE TABLE users
     bio TEXT,  
     favorite_jdr VARCHAR(100),  
     preference VARCHAR(250),
-    profile_picture TEXT
+    profile_picture TEXT,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE campaigns 
@@ -22,7 +26,9 @@ CREATE TABLE campaigns
     name VARCHAR(250) NOT NULL,
     status VARCHAR(250) NOT NULL,  
     jdr_type VARCHAR(100),
-    date_creation VARCHAR(10) NOT NULL
+    date_creation VARCHAR(10) NOT NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE characters
@@ -35,5 +41,7 @@ CREATE TABLE characters
     date_creation VARCHAR(10) NOT NULL,
     id_user INT NOT NULL, 
     FOREIGN KEY (id_user) REFERENCES users(id),
-    FOREIGN KEY (id_campaign) REFERENCES campaigns(id)
+    FOREIGN KEY (id_campaign) REFERENCES campaigns(id),
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

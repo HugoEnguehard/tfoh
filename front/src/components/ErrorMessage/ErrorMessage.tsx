@@ -18,10 +18,12 @@ const CustomTypography = styled(Typography)({
     margin: '0 0 30px 0',
 });
 
-export const ErrorMessage: FC<CustomFormErrorMessageProps> = ({ text }: CustomFormErrorMessageProps) => {
+const ErrorMessage: FC<CustomFormErrorMessageProps> = ({ text }: CustomFormErrorMessageProps) => {
     return (
         <CustomTypography>
             {text}
         </CustomTypography>
     );
 }
+
+export default ErrorMessage;

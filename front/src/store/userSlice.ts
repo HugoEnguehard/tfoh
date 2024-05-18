@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Interfaces
-import { UserState } from "../interfaces/UserState";
+import UserState from "../interfaces/UserState.interface";
 import axios from "axios";
 import EditUserResult from '../interfaces/EditUserResult';
 
