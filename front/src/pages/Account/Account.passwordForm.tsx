@@ -22,7 +22,7 @@ import AccoundPasswordForm from "../../interfaces/AccountPasswordForm";
 import UserState from "../../interfaces/UserState.interface";
 
 // Other imports
-import { CheckPassword } from "../../utils/password";
+import { CheckPassword } from "../../utils/formChecks";
 import axios from "axios";
 
 export const AccountPasswordFormComponent: FC = () => {

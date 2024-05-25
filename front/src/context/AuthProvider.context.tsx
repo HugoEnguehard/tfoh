@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             if(registerResponse.result) return null
             else return registerResponse.message
         } catch (error: any) {
-            return error.message            
+            return error.message;
         }
     }
 

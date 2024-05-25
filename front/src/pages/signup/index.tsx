@@ -1,0 +1,1 @@
+export { SignupPage as default } from './Signup.page';

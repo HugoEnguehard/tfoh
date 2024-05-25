@@ -8,6 +8,8 @@ class UserController {
         try {
             const decodedUser = (jwt.verify(req.cookies['Authorized'], process.env.JWT_SECRET || '') as any).user as User;
 
+            console.log(decodedUser)
+
             const userData = await UserService.getUserById(decodedUser.id.toString());
 
             if (!userData) return res.status(400).json({ message: 'Unknown user' });

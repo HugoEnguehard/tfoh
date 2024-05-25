@@ -13,7 +13,7 @@ interface AuthWrapperProps {
 // Page content imports
 const Landing = lazy(() => import('./pages/page-content/Landing'));
 const Signin = lazy(() => import('./pages/signin'));
-const Signup = lazy(() => import('./pages/page-content/Signup'));
+const Signup = lazy(() => import('./pages/signup'));
 const Signout = lazy(()=>import ('./pages/page-content/Signout'));
 const NotFound = lazy(() => import('./pages/page-content/NotFound'));
 const Profile = lazy(() => import('./pages/page-content/Profile'));

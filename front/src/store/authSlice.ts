@@ -52,9 +52,10 @@ export const registerUser = createAsyncThunk<
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, userData)
 
         if(response.status === 200) return { response: true }
-        else return { response: false, message: "une erreur est survenue" }
+        else return { response: false, message: "Une erreur est survenue" }
     } catch (error: any) {
-        return { response: false, message: error.message }
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.message }
     }
 })
 

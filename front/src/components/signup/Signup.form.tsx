@@ -1,98 +1,51 @@
-// React imports
-import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import TypographyTitle from "../../components/TypographyTitle";
-import TypographyText from "../../components/TypographyText";
-import DividerHorizontal from "../../components/DividerHorizontal";
-import GreenButton from "../../components/GreenButton/GreenButton";
-import GreenNavLink from "../../components/GreenNavLink";
-import FormInputCheckbox from "../../components/FormInputCheckbox";
-import TextLink from "../../components/TextLink";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import SignupForm from "../../interfaces/SignupForm";
-import FormLabel from "../../components/FormLabel/FormLabel";
-import FormInputText from "../../components/InputText/InputText";
-
-// Style imports
-import * as Styles from '../../styles/Signup.styles';
-
-// Material imports
 import { Typography } from "@mui/material";
-import { CheckPassword } from "../../utils/password";
-import { useAuth } from "../../context/AuthProvider.context";
+import DividerHorizontal from "../DividerHorizontal";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import FormLabel from "../FormLabel/FormLabel";
+import FormInputText from "../InputText/InputText";
+import TypographyText from "../TypographyText";
+import TypographyTitle from "../TypographyTitle";
+import { CustomTypographyText } from "./Signup.style";
+import FormInputCheckbox from "../FormInputCheckbox";
+import GreenButton from "../GreenButton/GreenButton";
+import GreenNavLink from "../GreenNavLink";
+import { ChangeEvent, FormEvent } from "react";
+import SignupForm from "../../interfaces/SignupForm";
+import { SignupFormProblems } from "../../containers/Signup.container";
+import TextLink from "../TextLink";
+import { CustomBox, CustomBoxButtons, CustomForm } from "../../pages/signup/Signup.wrapper";
 
-const Signup: FC = () => {
-    const { register } = useAuth();
-    const [errorMessage, setErrorMessage] = useState<string>("");
-    
-    const [formData, setFormData] = useState<SignupForm>({
-        username: '',
-        password: '',
-        confirmPassword: '',
-        email: '',
-        acceptCGU: false,
-    });
+// Interfaces
+interface SignupFormProps {
+    formData: SignupForm,
+    formError: string,
+    errorMessage: string,
+    formProblems: SignupFormProblems,
+    handleSubmit: (e: FormEvent) => void,
+    handleChangeInputText: (e: ChangeEvent<HTMLInputElement>) => void,
+    handleChangeInputCheckbox: (e: ChangeEvent<HTMLInputElement>) => void,
+}
 
-    const [formProblems, setFormProblems] = useState({
-        username: false,
-        password: false,
-        confirmPassword: false,
-        email: false,
-        acceptCGU: false,
-    });
+export const SignupFormComponent = ({
+    formData,
+    formError,
+    errorMessage,
+    formProblems,
+    handleSubmit,
+    handleChangeInputText,
+    handleChangeInputCheckbox,
+}: SignupFormProps) => {
 
-    const [formError, setFormError] = useState<string>('');
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if(formData.password !== formData.confirmPassword) {
-            setFormProblems({...formProblems, password: true, confirmPassword: true});
-            setFormError('Les mots de passe doivent être identiques !');
-            return;
-        }
-        else if(!CheckPassword(formData.password)) {
-            setFormProblems({...formProblems, password: true, confirmPassword: true});
-            setFormError('Le mot de passe doit respecter les conditions minimales !');
-            return;
-        }
-        else setFormProblems({...formProblems, password: false, confirmPassword: false});
-
-        const signUpResult = await register(formData);
-
-        if(signUpResult) setErrorMessage(signUpResult);
-    }
-
-    const handleChangeInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, name } = e.target;
-
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    }
-
-    const handleChangeInputCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.type === 'checkbox') {
-            const { checked, name } = e.target;
-    
-            setFormData({
-                ...formData,
-                [name]: checked,
-            });
-        }
-    };
-    
 
     return (
         <>
-            <Styles.CustomForm onSubmit={handleSubmit}>
+            <CustomForm onSubmit={handleSubmit}>
                 <TypographyTitle text="CREER UN COMPTE" />
                 <TypographyText text="Bienvenue dans le monde des rôlistes !" />
                 <TypographyText text="L'aventure t'appelle !" />
                 <DividerHorizontal />
                 <ErrorMessage text={formError} />
-                <Styles.CustomBox>
+                <CustomBox>
                     <FormLabel label={"Nom Utilisateur"} htmlFor={"username"} />
                     <FormInputText 
                         placeholder={"Martin4269"} 
@@ -171,19 +124,18 @@ const Signup: FC = () => {
                         formData={formData} 
                     />
 
-                    <Styles.CustomBoxButtons>
+                    <ErrorMessage text={errorMessage} />
+                    <CustomBoxButtons>
                         <GreenButton 
                             label={"S'inscrire"} 
                             customStyle={{width: '400px', height: '50px'}} 
                             isSubmit={true} 
                         />
-                        <Styles.CustomTypographyText m="10px 0" >ou</Styles.CustomTypographyText>
+                        <CustomTypographyText m="10px 0" >ou</CustomTypographyText>
                         <GreenNavLink label={"Aller à l'écran de connexion"} width={"400"} height={"50"} to={"/signin"} />
-                    </Styles.CustomBoxButtons>
-                </Styles.CustomBox>
-            </Styles.CustomForm>
+                    </CustomBoxButtons>
+                </CustomBox>
+            </CustomForm>
         </>
     );
 }
-
-export default Signup;
