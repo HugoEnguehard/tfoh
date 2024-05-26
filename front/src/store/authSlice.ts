@@ -33,13 +33,13 @@ export const authentificateUser = createAsyncThunk<
         const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`, {
             username: userData.username,
             password: userData.password,
-        })
+        }, { withCredentials: true });
 
         if (apiResponse.status === 200) return { result: true }
         else return { result: false }
 
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.statusText }
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
         else return { result: false, message: error.message }
     }
 })
@@ -61,7 +61,7 @@ export const registerUser = createAsyncThunk<
 
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
     try {
-        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`)
+        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`, {}, { withCredentials: true })
         if (apiResponse.status === 200) return true
         else return false
     } catch (error) {

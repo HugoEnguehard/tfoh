@@ -1,19 +1,17 @@
 // React imports
-import { FC } from "react";
-import GreenNavLink from "../../../components/GreenNavLink";
-import RedNavLink from "../../../components/RedNavLink";
+import GreenNavLink from "../GreenNavLink";
+import RedNavLink from "../RedNavLink";
 
 // Style imports
 import * as Styles from './LandingLayoutHeader.styles';
 
 // Redux imports
-import { useAppSelector } from "../../../store/store";
+import { useAppSelector } from "../../store/store";
+import { useAuth } from "../../context/AuthProvider.context";
 
-// Material imports
 
-
-const LandingLayoutHeader: FC = () => {
-    const isAuthenticated = useAppSelector((state: any) => state.auth.authStatus);
+const LandingLayoutHeader = () => {
+    const { isAuthentificated } = useAuth();
     const userData = useAppSelector((state: any) => state.user);
 
     return (
@@ -22,7 +20,7 @@ const LandingLayoutHeader: FC = () => {
                 <Styles.CustomBoxRow>
                     <Styles.CustomNavlinkLanding to="/" reloadDocument><span style={{textDecoration: 'underline'}}>The Legend of Zelda :</span> The Fall of Hyrule</Styles.CustomNavlinkLanding>
                     <Styles.CustomBoxProfile>
-                        {isAuthenticated ? (
+                        {isAuthentificated ? (
                             <Styles.CustomNavlinkButtonProfile to="/profile" reloadDocument>
                                 <Styles.CustomAvatar src={userData.profilePicture} />
                                 Profile - {userData.username}
@@ -39,7 +37,7 @@ const LandingLayoutHeader: FC = () => {
                         <Styles.CustomDividerVertical orientation="vertical" />
                         <Styles.CustomNavlinkButton to="/lexique" reloadDocument>Lexique</Styles.CustomNavlinkButton>
                     </Styles.CustomBoxNavRow>
-                    {isAuthenticated ? (
+                    {isAuthentificated ? (
                         <RedNavLink label="Se déconnecter" width="200" height="50" to="/signout" />
                     ) : (
                         <GreenNavLink label="Se connecter" width="200" height="50" to="/signin" />

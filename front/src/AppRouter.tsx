@@ -3,7 +3,7 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Redux imports
-import { useAppSelector } from './store/store';
+import { useAuth } from './context/AuthProvider.context';
 
 // Interfaces
 interface AuthWrapperProps {
@@ -21,21 +21,21 @@ const Account = lazy(() => import('./pages/account/Account.page'));
 const Personnages = lazy(() => import('./pages/personnages'));
 
 // Page layout imports
-const LandingLayout = lazy(()=>import ('./pages/layouts/LandingLayout'));
-const SigninLayout = lazy(()=>import ('./pages/layouts/SigninLayout'));
+const LandingLayout = lazy(()=>import ('./pages/layouts/landing-layout'));
+const SigninLayout = lazy(()=>import ('./pages/layouts/signin-layout'));
 const ProfileLayout = lazy(()=>import ('./pages/layouts/ProfileLayout'));
 
 
 const AppRouter = () => {
-    const authStatus = useAppSelector((state)=>state.auth.authStatus);
+    const { isAuthentificated } = useAuth();
 
     const RequiredAuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
-        if (authStatus) return <>{children}</>;
+        if (isAuthentificated) return <>{children}</>;
         else return <Navigate to="/signin" replace/>;
     }
 
     const ForbiddenAuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
-        if (authStatus) return <Navigate to="/" replace />;
+        if (isAuthentificated) return <Navigate to="/" replace />;
         else return <>{children}</>;
     }
 

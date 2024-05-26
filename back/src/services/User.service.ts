@@ -18,7 +18,7 @@ class UserService {
     }
 
     async createUser(email: string, password: string, username: string, currentDate: string) {
-        return await User.create({ email: email.toLowerCase(), password: password, username: username.toLowerCase(), date_creation: currentDate })
+        return await User.create({ email: email, password: password, username: username, date_creation: currentDate })
     }
 }
 

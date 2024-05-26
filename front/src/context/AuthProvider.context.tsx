@@ -1,5 +1,5 @@
 // React imports
-import { createContext, useContext, useEffect } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 
 // Redux imports
@@ -50,8 +50,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
             if (authResponse.result) {
                 const userProfileData: any = await (
-                    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/me`)
-                ).data
+                    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/me`, { withCredentials: true })
+                ).data.user;
+                console.log(userProfileData)
                 dispatch(setUser(userProfileData as UserState))
                 return null
             } else return authResponse.message
@@ -77,10 +78,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         dispatch(resetUser())
         dispatch(logoutUser())
     }
-
-    useEffect(() => {
-        if(!isAuthentificated) logout()
-    }, [isAuthentificated])
 
     const contextValue: AuthContextType = {
         isAuthentificated,

@@ -10,10 +10,14 @@ require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT || 3080;
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

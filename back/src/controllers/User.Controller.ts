@@ -6,9 +6,7 @@ import UserService from "../services/User.service";
 class UserController {
     async getUser (req: Request, res: Response) {
         try {
-            const decodedUser = (jwt.verify(req.cookies['Authorized'], process.env.JWT_SECRET || '') as any).user as User;
-
-            console.log(decodedUser)
+            const decodedUser = (jwt.verify(req.cookies['Authorization'], process.env.JWT_SECRET || '') as any).user as User;
 
             const userData = await UserService.getUserById(decodedUser.id.toString());
 

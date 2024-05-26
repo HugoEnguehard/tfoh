@@ -46,9 +46,9 @@ export const SignupFormComponent = ({
                 <DividerHorizontal />
                 <ErrorMessage text={formError} />
                 <CustomBox>
-                    <FormLabel label={"Nom Utilisateur"} htmlFor={"username"} />
+                    <FormLabel label="Nom Utilisateur" htmlFor="username" />
                     <FormInputText 
-                        placeholder={"Martin4269"} 
+                        placeholder="Martin4269"
                         name="username" 
                         isPassword={false} 
                         handleChange={handleChangeInputText} 
@@ -58,9 +58,9 @@ export const SignupFormComponent = ({
                         isRequired
                     />
 
-                    <FormLabel label={"Mot de passe"} htmlFor={"password"} />
+                    <FormLabel label="Mot de passe" htmlFor="password" />
                     <FormInputText 
-                        placeholder={"********"} 
+                        placeholder="********"
                         name="password" 
                         isPassword={true} 
                         handleChange={handleChangeInputText} 
@@ -70,9 +70,9 @@ export const SignupFormComponent = ({
                         isRequired
                     />
 
-                    <FormLabel label={"Confirmation Mot de passe"} htmlFor={"confirmPassword"} />
+                    <FormLabel label="Confirmation Mot de passe" htmlFor="confirmPassword" />
                     <FormInputText 
-                        placeholder={"********"} 
+                        placeholder="********"
                         name="confirmPassword" 
                         isPassword={true} 
                         handleChange={handleChangeInputText} 
@@ -98,9 +98,9 @@ export const SignupFormComponent = ({
                         <li>30 caractères maximum</li>
                     </ul>
 
-                    <FormLabel label={"Adesse E-mail"} htmlFor={"email"} />
+                    <FormLabel label="Adresse E-mail" htmlFor="email" />
                     <FormInputText 
-                        placeholder={"martin4269@exemple.com"} 
+                        placeholder="martin4269@exemple.com"
                         name="email" 
                         isPassword={false} 
                         handleChange={handleChangeInputText} 
@@ -114,12 +114,12 @@ export const SignupFormComponent = ({
                         label={
                             <Typography>
                                 {`J'accepte les `}
-                                <TextLink url={"/cgu"} text={"Conditions générales d'utilisation"} newTab={true} color="#278527"  /> 
+                                <TextLink url="/cgu" text="Conditions générales d'utilisation" newTab={true} color="#278527"  /> 
                                 {` et la `}
-                                <TextLink url={"/pc"} text={"Politique de confidentialité"} newTab={true} color="#278527"  />
+                                <TextLink url="/pc" text="Politique de confidentialité" newTab={true} color="#278527"  />
                             </Typography>
                         } 
-                        name={"acceptCGU"} 
+                        name="acceptCGU"
                         handleChange={handleChangeInputCheckbox} 
                         formData={formData} 
                     />
@@ -127,12 +127,12 @@ export const SignupFormComponent = ({
                     <ErrorMessage text={errorMessage} />
                     <CustomBoxButtons>
                         <GreenButton 
-                            label={"S'inscrire"} 
+                            label="S'inscrire"
                             customStyle={{width: '400px', height: '50px'}} 
                             isSubmit={true} 
                         />
                         <CustomTypographyText m="10px 0" >ou</CustomTypographyText>
-                        <GreenNavLink label={"Aller à l'écran de connexion"} width={"400"} height={"50"} to={"/signin"} />
+                        <GreenNavLink label="Aller à l'écran de connexion" width="400" height="50" to="/signin" />
                     </CustomBoxButtons>
                 </CustomBox>
             </CustomForm>

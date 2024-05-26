@@ -1,6 +1,6 @@
 // React imports
 import React, { FC } from "react";
-import SigninLayoutHeader from "./signin/SigninLayoutHeader";
+import SigninLayoutHeader from "../../components/signin-layout/SigninLayoutHeader.component";
 import ProfileSidebar from "./profile/ProfileSidebar";
 
 // Style imports

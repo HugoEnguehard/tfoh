@@ -10,8 +10,8 @@ const LandingLayoutHeader: FC = () => {
         <>
             <Styles.CustomGrid>
                 <Styles.CustomBox>
-                    <Styles.CustomNavLink to={"/cgu"}>Condition d'utilisation</Styles.CustomNavLink>
-                    <Styles.CustomNavLink to={"/pc"}>Politique de Condifentialité</Styles.CustomNavLink>
+                    <Styles.CustomNavLink to="/cgu">Condition d'utilisation</Styles.CustomNavLink>
+                    <Styles.CustomNavLink to="/pc">Politique de Condifentialité</Styles.CustomNavLink>
                     <Styles.CustomTypography>© Copyright - Hugo Enguehard</Styles.CustomTypography>
                 </Styles.CustomBox>
             </Styles.CustomGrid>

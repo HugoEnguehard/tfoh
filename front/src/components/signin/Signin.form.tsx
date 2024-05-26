@@ -60,7 +60,7 @@ const SigninFormComponent = ({
                 <TextLink url="/forgetPassword" text="Mot de passe oublié ?" color="#278527" />
                 <CustomBoxButtons>
                     <GreenButton 
-                        label={"Connexion"}
+                        label="Connexion"
                         customStyle={{width: '400px', height: '50px'}}
                         isSubmit={true} 
                     />

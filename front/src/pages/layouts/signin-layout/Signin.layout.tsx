@@ -1,15 +1,18 @@
 // React imports
 import React, { FC } from "react";
-import SigninLayoutHeader from "./signin/SigninLayoutHeader";
+import SigninLayoutHeader from "../../../components/signin-layout/SigninLayoutHeader.component";
 
 // Style imports
-import * as Styles from '../../styles/SigninLayout.styles';
+import * as Styles from '../../../styles/SigninLayout.styles';
 
 // Interfaces
 interface SigninLayoutProps {
     childComponent: FC,
 }
-const SigninLayout: FC<SigninLayoutProps> = ({ childComponent }: SigninLayoutProps) => {
+
+export const SigninLayout: FC<SigninLayoutProps> = ({ 
+    childComponent,
+}: SigninLayoutProps) => {
     return (
         <>
         <SigninLayoutHeader />
@@ -21,5 +24,3 @@ const SigninLayout: FC<SigninLayoutProps> = ({ childComponent }: SigninLayoutPro
         </>
     );
 }
-
-export default SigninLayout;

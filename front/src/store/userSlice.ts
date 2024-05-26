@@ -68,12 +68,12 @@ export const editUser = createAsyncThunk<EditUserResult, UserState>('user/edit',
         });
 
         if(response.status === 200) return { success: true, editedUser: response.data.user };
-        else return { success: false, message: response.data.message };
+        else return { success: false, message: response.data.error };
         
     } catch (error: any) {
         return axios.isAxiosError(error)
             ? (error.response && (error.response.status === 401 || error.response.status === 402)
-                ? { success: false, message: error.response.data }
+                ? { success: false, message: error.response.data.error }
                 : { success: false, message: error.message })
             : { success: false, message: error.message };
     }

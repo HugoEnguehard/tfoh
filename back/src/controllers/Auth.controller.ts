@@ -6,25 +6,25 @@ import bcrypt from 'bcrypt';
 
 class AuthController {
     async signIn(req: Request, res: Response) {
-        try {
-            const { username, password } = req.body;
+      try {
+        const { username, password } = req.body;
 
-            if(!username || !password) return res.status(400).json({ error: 'Username and password are required' });
+        if(!username || !password) return res.status(400).json({ error: 'Username and password are required' });
 
-            const { token, error, status } = await AuthService.signIn(username, password);
+        const { token, error, status } = await AuthService.signIn(username, password);
 
-            if(status !== 200) return res.status(status).json({ message: error });
+        if(status !== 200) return res.status(status).json({ message: error });
 
-            res.cookie('Authorized', token, {
-                maxAge: 1 * 60 * 60 * 1000, // 1 hour
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production'
-            });
-        
-            return res.status(200).json({ message: 'Signin successful' });
-        } catch (error: any) {
-            return res.status(500).json({ error: 'Internal Server Error'});
-        }
+        res.cookie('Authorization', token, {
+          maxAge: 1 * 60 * 60 * 1000, // 1 hour
+          httpOnly: false,
+          secure: process.env.NODE_ENV === 'production'
+        });
+    
+        return res.status(200).json({ message: 'Signin successful' });
+      } catch (error: any) {
+          return res.status(500).json({ error: 'Internal Server Error'});
+      }
     }
 
     async signUp(req: Request, res: Response) {
@@ -51,7 +51,7 @@ class AuthController {
     
       async logout(req: Request, res: Response) {
         try {
-          res.clearCookie('Authorized');
+          res.clearCookie('Authorization');
           res.status(200).json({ message: 'Logout successful' });
         } catch (error) {
           console.error(error);
