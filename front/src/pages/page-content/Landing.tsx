@@ -1,5 +1,4 @@
 // React imports
-import { FC } from 'react';
 import GreenNavLink from '../../components/GreenNavLink';
 import { useAuth } from '../../context/AuthProvider.context';
 

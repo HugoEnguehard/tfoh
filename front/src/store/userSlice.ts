@@ -5,6 +5,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import UserState from "../interfaces/UserState.interface";
 import axios from "axios";
 import EditUserResult from '../interfaces/EditUserResult';
+import ProfileForm from "../interfaces/ProfileForm";
 
 const initialState: UserState = {
     id: 0,
@@ -36,16 +37,17 @@ const authSlice = createSlice({
             state.profilePicture = action.payload.profilePicture;
         },
         resetUser(state) {
-            state.id = 0;
-            state.firstname = '';
-            state.lastname = '';
-            state.username = '';
-            state.email = '';
-            state.date_creation = '';
-            state.bio = '';
-            state.favorite_jdr = '';
-            state.preference = '';
-            state.profilePicture = '';
+            state = initialState;
+            // state.id = 0;
+            // state.firstname = '';
+            // state.lastname = '';
+            // state.username = '';
+            // state.email = '';
+            // state.date_creation = '';
+            // state.bio = '';
+            // state.favorite_jdr = '';
+            // state.preference = '';
+            // state.profilePicture = '';
         },
     },
     extraReducers: (builder) => {
@@ -53,19 +55,12 @@ const authSlice = createSlice({
     }
 });
 
-export const editUser = createAsyncThunk<EditUserResult, UserState>('user/edit', async (formData: UserState) => {
+export const editUserProfile = createAsyncThunk<EditUserResult, UserState>('user/editProfile', async (formData: ProfileForm) => {
     try {
-        const response = await axios.put('http://localhost:3050/api/users/edit', {
-            id: formData.id,
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            username: formData.username,
-            email: formData.email,
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/profile`, {
             bio: formData.bio,
             favorite_jdr: formData.favorite_jdr,
-            preference: formData.preference,
-            profilePicture: formData.profilePicture,
-        });
+        }, { withCredentials: true });
 
         if(response.status === 200) return { success: true, editedUser: response.data.user };
         else return { success: false, message: response.data.error };

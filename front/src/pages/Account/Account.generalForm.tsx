@@ -24,7 +24,7 @@ import { Box } from "@mui/material";
 import AccountGeneralForm from "../../interfaces/AccountGeneralForm";
 import UserState from "../../interfaces/UserState.interface";
 import EditUserResult from "../../interfaces/EditUserResult";
-import { editUser, setUser } from "../../store/userSlice";
+import { editUserProfile, setUser } from "../../store/userSlice";
 
 export const AccountGeneralFormComponent: FC = () => {
     const dispatch = useAppDispatch();
@@ -66,9 +66,9 @@ export const AccountGeneralFormComponent: FC = () => {
             favorite_jdr: userData.favorite_jdr,
         }
 
-        const editUserResult = await dispatch(editUser(dataToSend));
+        const editUserResult = await dispatch(editUserProfile(dataToSend));
 
-        if(editUser.fulfilled.match(editUserResult)) {
+        if(editUserProfile.fulfilled.match(editUserResult)) {
             const editUserData = editUserResult.payload as EditUserResult;
             if (editUserData.success && editUserData.editedUser) {
                 console.log(editUserData.editedUser);

@@ -20,6 +20,14 @@ class UserService {
     async createUser(email: string, password: string, username: string, currentDate: string) {
         return await User.create({ email: email, password: password, username: username, date_creation: currentDate })
     }
+
+    async editUser(user: User) {
+        const existingUser = await User.findByPk(user.id);
+        if (!existingUser) throw new Error('User not found');
+
+        Object.assign(existingUser, user);
+        return await existingUser.save();
+    }
 }
 
 export default new UserService();
