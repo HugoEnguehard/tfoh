@@ -18,9 +18,6 @@ export const SigninContainer = () => {
         e.preventDefault();
 
         const signInResult = await login(formData.username, formData.password);
-
-        // console.log(signInResult)
-
         if(signInResult) setErrorMessage(signInResult);
     }
 

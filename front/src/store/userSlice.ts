@@ -3,9 +3,11 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Interfaces
 import UserState from "../interfaces/UserState.interface";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import EditUserResult from '../interfaces/EditUserResult';
 import ProfileForm from "../interfaces/ProfileForm";
+import AccountGeneralForm from "../interfaces/AccountGeneralForm";
+import AccountPasswordForm from "../interfaces/AccountPasswordForm";
 
 const initialState: UserState = {
     id: 0,
@@ -55,24 +57,56 @@ const authSlice = createSlice({
     }
 });
 
-export const editUserProfile = createAsyncThunk<EditUserResult, UserState>('user/editProfile', async (formData: ProfileForm) => {
+export const editUserProfile = createAsyncThunk<EditUserResult, ProfileForm>('user/editProfile', async (formData: ProfileForm) => {
     try {
         const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/profile`, {
             bio: formData.bio,
             favorite_jdr: formData.favorite_jdr,
         }, { withCredentials: true });
 
-        if(response.status === 200) return { success: true, editedUser: response.data.user };
-        else return { success: false, message: response.data.error };
+        if(response.status === 200) return { result: true, editedUser: response.data.user };
+        else return { result: false };
         
     } catch (error: any) {
-        return axios.isAxiosError(error)
-            ? (error.response && (error.response.status === 401 || error.response.status === 402)
-                ? { success: false, message: error.response.data.error }
-                : { success: false, message: error.message })
-            : { success: false, message: error.message };
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.message }
     }
-})
+});
+
+export const editUserAccount = createAsyncThunk<EditUserResult, AccountGeneralForm>('user/editAccount', async (formData: AccountGeneralForm) => {
+    try {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/account`, {
+            username: formData.username,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            email: formData.email,
+            preference: formData.preference,
+        }, { withCredentials: true });
+
+        if(response.status === 200) return { result: true, editedUser: response.data.user };
+        else return { result: false };
+        
+    } catch (error: any) {
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.message }
+    }
+});
+
+export const editUserPassword = createAsyncThunk<EditUserResult, AccountPasswordForm>('user/editPassword', async (formData: AccountPasswordForm) => {
+    try {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/password`, {
+            oldPassword: formData.oldPassword,
+            newPassword: formData.newPassword,
+        }, { withCredentials: true });
+
+        if(response.status === 200) return { result: true, editedUser: response.data.user };
+        else return { result: false };
+        
+    } catch (error: any) {
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.message }
+    }
+});
 
 export const { setUser, resetUser } = authSlice.actions;
 export default authSlice.reducer;

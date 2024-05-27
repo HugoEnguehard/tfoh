@@ -39,7 +39,7 @@ export const authentificateUser = createAsyncThunk<
         else return { result: false }
 
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
+        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.message }
         else return { result: false, message: error.message }
     }
 })

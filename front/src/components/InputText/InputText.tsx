@@ -45,7 +45,7 @@ const FormInputText = <T,>({
                     placeholder={placeholder}
                     type={inputType}
                     onChange={handleChange}
-                    value={formData[name]}
+                    value={formData[name] || ''}
                     autoComplete={name !== "password" ? (name as string) : "off"}
                     required={isRequired}
                 />

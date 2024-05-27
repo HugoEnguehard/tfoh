@@ -42,7 +42,6 @@ export const ProfileContainer = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setIsFormUpdated(true);
 
         const dataToSend = {
             ...userData,
@@ -53,7 +52,8 @@ export const ProfileContainer = () => {
 
         if(editUserProfile.fulfilled.match(editUserResult)) {
             const editUserData = editUserResult.payload as EditUserResult;
-            if (editUserData.success && editUserData.editedUser) {
+            if (editUserData.result && editUserData.editedUser) {
+                setIsFormUpdated(true);
                 dispatch(setUser(editUserData.editedUser));
                 setValidationMessage("Profil mis à jour !");
             }
