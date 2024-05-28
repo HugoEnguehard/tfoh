@@ -8,5 +8,9 @@ export default interface UserState {
     bio: string,
     favorite_jdr: string,
     preference: string,
-    profilePicture: string,
+    profile_picture: {
+        file: File|null,
+        fileBase64: string,
+        uri: string,
+    }
 }

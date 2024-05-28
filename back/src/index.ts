@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import path from 'path';
 
 import authRoutes from './routes/Auth.routes';
 import userRoutes from './routes/User.routes';
@@ -15,9 +16,13 @@ const corsOptions = {
   credentials: true,
 }
 
+const userImagesPath = path.resolve(__dirname, 'user-images/pp');
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors(corsOptions));
+
+app.use('/user-images/pp', express.static(userImagesPath));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

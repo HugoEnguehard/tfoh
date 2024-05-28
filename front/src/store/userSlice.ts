@@ -19,14 +19,18 @@ const initialState: UserState = {
     bio: '',
     favorite_jdr: '',
     preference: '',
-    profilePicture: '',
+    profile_picture: {
+        file: null,
+        fileBase64: '',
+        uri: '',
+    },
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<UserState>) {
+        setUser(state, action: PayloadAction<any>) {
             state.id = action.payload.id;
             state.firstname = action.payload.firstname;
             state.lastname = action.payload.lastname;
@@ -36,20 +40,10 @@ const authSlice = createSlice({
             state.bio = action.payload.bio;
             state.favorite_jdr = action.payload.favorite_jdr;
             state.preference = action.payload.preference;
-            state.profilePicture = action.payload.profilePicture;
+            state.profile_picture.uri = action.payload.profile_picture;
         },
         resetUser(state) {
             state = initialState;
-            // state.id = 0;
-            // state.firstname = '';
-            // state.lastname = '';
-            // state.username = '';
-            // state.email = '';
-            // state.date_creation = '';
-            // state.bio = '';
-            // state.favorite_jdr = '';
-            // state.preference = '';
-            // state.profilePicture = '';
         },
     },
     extraReducers: (builder) => {
@@ -75,13 +69,17 @@ export const editUserProfile = createAsyncThunk<EditUserResult, ProfileForm>('us
 
 export const editUserAccount = createAsyncThunk<EditUserResult, AccountGeneralForm>('user/editAccount', async (formData: AccountGeneralForm) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/account`, {
-            username: formData.username,
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            email: formData.email,
-            preference: formData.preference,
-        }, { withCredentials: true });
+        const dataToSend = new FormData();
+
+        dataToSend.append('username', formData.username);
+        dataToSend.append('firstname', formData.firstname);
+        dataToSend.append('lastname', formData.lastname);
+        dataToSend.append('email', formData.email);
+        dataToSend.append('preference', formData.preference);
+        if (formData.profile_picture.file) dataToSend.append('profile_picture', formData.profile_picture.file);
+
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/account`, dataToSend, { withCredentials: true })
+
 
         if(response.status === 200) return { result: true, editedUser: response.data.user };
         else return { result: false };

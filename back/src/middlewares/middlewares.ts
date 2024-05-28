@@ -15,3 +15,8 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
         return res.status(403).json({ error: 'Forbidden: Invalid token' });
     }
 }
+
+// export const filesPayloadExists = (req: Request, res: Response, next: NextFunction) => {
+//     if(!req.files) return res.status(402).json({ message: "Missing files" })
+//     next();
+// }

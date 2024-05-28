@@ -33,10 +33,10 @@ export const ProfileMain = ({
         <CustomGrid>
             <CustomBoxRow>
                 <Box style={{display: 'flex', flexDirection: 'column'}}>
-                    <CustomAvatar src={userData.profilePicture} />
+                    <CustomAvatar src={`${process.env.REACT_APP_BACKEND_URL}${userData.profile_picture.uri}`} />
                     <CustomTypographyBlack>
                         <span style={{textDecoration: "underline"}}>Préférence :</span>
-                        {` ${userData.preference ? userData.preference : 'Aucune'}`}
+                        {` ${userData.preference !== "-" ? userData.preference : 'Aucune'}`}
                     </CustomTypographyBlack>
                 </Box>
                 <Box style={{marginLeft: '20px'}}>

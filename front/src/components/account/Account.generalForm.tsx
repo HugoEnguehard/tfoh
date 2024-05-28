@@ -20,18 +20,21 @@ import { Box, Typography } from "@mui/material";
 // Interfaces
 import AccountGeneralForm from "../../interfaces/AccountGeneralForm";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import UserState from "../../interfaces/UserState.interface";
 
 interface AccountGeneralFormProps {
     errorMessage: string,
+    userData: UserState,
     isGeneralUpdated: boolean,
     formDataGeneral: AccountGeneralForm,
     handleInputGeneral: (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>) => void,
     handleSubmitGeneral: (e: FormEvent) => void,
-    handleChangeFileImage: (name: string, value: string) => void,
+    handleChangeFileImage: (value: string, file: File) => void,
 }
 
 export const AccountGeneralFormComponent = ({
     errorMessage,
+    userData,
     isGeneralUpdated,
     formDataGeneral,
     handleInputGeneral,
@@ -57,9 +60,14 @@ export const AccountGeneralFormComponent = ({
                 </CustomGridColumn>
                 <DividerVertical />
                 <CustomGridColumn>
-                    <FormLabel label="Photo de profile :" htmlFor="profilePicture" />
+                    <FormLabel label="Photo de profile :" htmlFor="profile_picture" />
                     <Box fontStyle={{marginTop: '5px', display: 'flex'}}>
-                        <FormInputFileImage name="profilePicture" formData={formDataGeneral} onChange={handleChangeFileImage} />
+                        <FormInputFileImage 
+                            name="profile_picture" 
+                            formData={formDataGeneral} 
+                            onChange={handleChangeFileImage} 
+                            currentImageForm={formDataGeneral.profile_picture.fileBase64 ? formDataGeneral.profile_picture.fileBase64 : `${process.env.REACT_APP_BACKEND_URL}${userData.profile_picture.uri}`} 
+                        />
                         <Box style={{marginLeft: '20px'}}>
                             <TypographyText text="Cliquez sur la photo pour la modifier." size="14" isGrey />
                         </Box>

@@ -4,6 +4,8 @@ import User from "../models/User";
 import UserService from "../services/User.service";
 import { CheckEmail, CheckPassword } from "../utils/formChecks";
 import bcrypt from 'bcrypt';
+import { deleteImageProfilePicture, saveImageProfilePicture } from "../utils/manageImages";
+import { UploadedFile } from "express-fileupload";
 
 class UserController {
     async getUser (req: Request, res: Response) {
@@ -47,6 +49,7 @@ class UserController {
         try {
             const decodedUser = (jwt.verify(req.cookies['Authorization'], process.env.JWT_SECRET || '') as any).user as User;
             const { firstname, lastname, username, email, preference } = req.body;
+            const files = req.files;
 
             if(firstname === undefined || lastname === undefined || username === undefined || email === undefined || preference === undefined) return res.status(400).json({ message: 'You must provide all attributes' });
 
@@ -61,11 +64,17 @@ class UserController {
             const currentUser = await UserService.getUserById(decodedUser.id.toString());
             if (!currentUser) return res.status(404).json({ message: 'Unknown user' });
 
-            currentUser.firstname = firstname;
-            currentUser.lastname = lastname;
+            currentUser.firstname = firstname === "null" ? null : firstname;
+            currentUser.lastname = lastname === "null" ? null : lastname;
             currentUser.username = username;
             currentUser.email = email;
             currentUser.preference = preference;
+            
+            if(files && files.profile_picture) { 
+                const ppImageURI = await saveImageProfilePicture(files.profile_picture as UploadedFile);
+                if(currentUser.profile_picture) await deleteImageProfilePicture(currentUser.profile_picture);
+                currentUser.profile_picture = ppImageURI;
+            }
 
             const editedUser = await UserService.editUser(currentUser);
             const { password, ...userWithoutPassword } = editedUser.dataValues;

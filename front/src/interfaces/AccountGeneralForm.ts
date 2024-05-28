@@ -3,6 +3,10 @@ export default interface AccountGeneralForm {
     lastname: string,
     email: string,
     username: string,
-    profilePicture: string,
+    profile_picture: {
+        file: File|null,
+        fileBase64: string,
+        uri: string,
+    },
     preference: string,
 }

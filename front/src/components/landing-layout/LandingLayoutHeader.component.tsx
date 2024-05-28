@@ -22,7 +22,7 @@ const LandingLayoutHeader = () => {
                     <Styles.CustomBoxProfile>
                         {isAuthentificated ? (
                             <Styles.CustomNavlinkButtonProfile to="/profile" reloadDocument>
-                                <Styles.CustomAvatar src={userData.profilePicture} />
+                                <Styles.CustomAvatar src={`${process.env.REACT_APP_BACKEND_URL}${userData.profile_picture.uri}`} />
                                 Profile - {userData.username}
                             </Styles.CustomNavlinkButtonProfile>
                         ) : null}

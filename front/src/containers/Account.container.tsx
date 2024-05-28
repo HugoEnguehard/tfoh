@@ -12,11 +12,10 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 import UserState from "../interfaces/UserState.interface";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import AccountGeneralForm from "../interfaces/AccountGeneralForm";
-import { editUserAccount, editUserPassword, editUserProfile, setUser } from "../store/userSlice";
+import { editUserAccount, editUserPassword, setUser } from "../store/userSlice";
 import EditUserResult from "../interfaces/EditUserResult";
 import AccoundPasswordForm from "../interfaces/AccountPasswordForm";
 import { CheckPassword } from "../utils/formChecks";
-import axios from "axios";
 
 
 export const AccountContainer = () => {
@@ -33,7 +32,11 @@ export const AccountContainer = () => {
         lastname:  '',
         email: '',
         username: '',
-        profilePicture: '',
+        profile_picture: {
+            file: null,
+            fileBase64: '',
+            uri: '',
+        },
         preference: '-',
     });
 
@@ -43,13 +46,13 @@ export const AccountContainer = () => {
         oldPassword: '',
     });
 
-    useEffect(() => {        
+    useEffect(() => {
         setFormDataGeneral({
             firstname: userData.firstname,
             lastname: userData.lastname,
             email: userData.email,
             username: userData.username,
-            profilePicture: userData.profilePicture,
+            profile_picture: userData.profile_picture,
             preference: userData.preference ? userData.preference : '-',
         });
     }, [userData]);
@@ -62,6 +65,12 @@ export const AccountContainer = () => {
         if(editUserAccount.fulfilled.match(editUserResult)) {
             const editUserData = editUserResult.payload as EditUserResult;
             if (editUserData.result && editUserData.editedUser) {
+                setFormDataGeneral({
+                    ...formDataGeneral,
+                    firstname: formDataGeneral.firstname === "null" ? "" : formDataGeneral.firstname,
+                    lastname: formDataGeneral.lastname === "null" ? "" : formDataGeneral.lastname,
+                });
+                if(formDataGeneral.firstname === "null" || formDataGeneral.lastname === "null") setErrorMessage("Mot interdit")
                 setIsGeneralUpdated(true);
                 dispatch(setUser(editUserData.editedUser));
             }
@@ -79,15 +88,18 @@ export const AccountContainer = () => {
         });
     }
 
-    const handleChangeFileImage = (name: string, value: string) => {
+    const handleChangeFileImage = (value: string, file: File) => {
         setIsGeneralUpdated(false);
-        // Mettre à jour formData avec le base64 du fichier
+
         setFormDataGeneral(prevData => ({
             ...prevData,
-            [name]: value,
+            profile_picture: {
+                fileBase64: value,
+                uri: formDataGeneral.profile_picture.uri,
+                file: file,
+            }
         }));
     }
-
 
     const handleSubmitPassword = async (e: FormEvent) => {
         e.preventDefault();
@@ -132,6 +144,7 @@ export const AccountContainer = () => {
             <DividerHorizontal />
             <AccountGeneralFormComponent 
                 errorMessage={errorMessage}
+                userData={userData}
                 isGeneralUpdated={isGeneralUpdated}
                 formDataGeneral={formDataGeneral} 
                 handleInputGeneral={handleInputGeneral}
