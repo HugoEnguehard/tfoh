@@ -39,8 +39,8 @@ export const authentificateUser = createAsyncThunk<
         else return { result: false }
 
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.message }
-        else return { result: false, message: error.message }
+        if (error instanceof AxiosError && error.response && error.response.status !== 500) return { result: false, message: error.response.data.message }
+        else return { result: false, message: error.response.data.error }
     }
 })
 
@@ -49,13 +49,13 @@ export const registerUser = createAsyncThunk<
     SignupData
 >("auth/register", async (userData: SignupData) => {
     try {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, userData)
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, userData, { withCredentials: true })
 
         if(response.status === 200) return { response: true }
         else return { response: false, message: "Une erreur est survenue" }
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
-        else return { result: false, message: error.message }
+        if (error instanceof AxiosError && error.response && error.response.status !== 500) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.response.data.error }
     }
 })
 

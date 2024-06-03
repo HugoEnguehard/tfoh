@@ -47,7 +47,7 @@ export const SignupContainer = () => {
         const signUpResult = await register(formData);
 
         if(signUpResult) setErrorMessage(signUpResult);
-        setIsSignupSuccess(true);
+        else setIsSignupSuccess(true);
     }
 
     const checkFormValid = async () => {

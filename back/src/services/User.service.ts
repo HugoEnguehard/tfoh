@@ -18,7 +18,7 @@ class UserService {
     }
 
     async createUser(email: string, password: string, username: string, currentDate: string): Promise<User> {
-        return await User.create({ email: email, password: password, username: username, date_creation: currentDate })
+        return await User.create({ email: email, password: password, username: username, date_creation: currentDate, preference: '-' })
     }
 
     async editUser(user: User): Promise<User> {

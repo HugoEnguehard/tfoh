@@ -62,8 +62,8 @@ export const editUserProfile = createAsyncThunk<EditUserResult, ProfileForm>('us
         else return { result: false };
         
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
-        else return { result: false, message: error.message }
+        if (error instanceof AxiosError && error.response && error.response.status !== 500) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.response.data.error }
     }
 });
 
@@ -85,8 +85,8 @@ export const editUserAccount = createAsyncThunk<EditUserResult, AccountGeneralFo
         else return { result: false };
         
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
-        else return { result: false, message: error.message }
+        if (error instanceof AxiosError && error.response && error.response.status !== 500) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.response.data.error }
     }
 });
 
@@ -101,8 +101,8 @@ export const editUserPassword = createAsyncThunk<EditUserResult, AccountPassword
         else return { result: false };
         
     } catch (error: any) {
-        if (error instanceof AxiosError && error.response) return { result: false, message: error.response.data.error }
-        else return { result: false, message: error.message }
+        if (error instanceof AxiosError && error.response && error.response.status !== 500) return { result: false, message: error.response.data.error }
+        else return { result: false, message: error.response.data.error }
     }
 });
 

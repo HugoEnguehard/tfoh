@@ -5,3 +5,4 @@ back/node_modules/
 
 node_modules/
 back/package-lock.json
+back/src/user-images

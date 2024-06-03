@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 const userProfileData: any = await (
                     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/me`, { withCredentials: true })
                 ).data.user;
-                console.log(userProfileData)
+                
                 dispatch(setUser(userProfileData as UserState))
                 return null
             } else return authResponse.message

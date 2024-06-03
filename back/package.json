@@ -6,11 +6,10 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "db:build": "docker build -t dbtfoh:tag -f DockerFile.mysql .",
-    "db:start": "docker run -d --name DataBaseTFOH -p 3306:3306 --env-file .env dbtfoh:tag",
-    "db:stop": "docker stop DataBaseTFOH",
-    "db:remove:container": "docker rm DataBaseTFOH",
-    "db:remove:image": "docker rmi dbtfoh:tag"
+    "db:start": "docker-compose up -d",
+    "db:stop": "docker-compose down",
+    "db:remove:container": "docker-compose down",
+    "db:remove:image": "docker-compose down --rmi all"
   },
   "keywords": [],
   "author": "",
