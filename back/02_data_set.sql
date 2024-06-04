@@ -6,11 +6,17 @@ VALUES
 ('John', 'Doe', 'johndoe', 'john@example.com', 'hashedpassword1', '20/02/2024', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Dungeons & Dragons', 'Fantasy', 'url_image_1'),
 ('Jane', 'Smith', 'janesmith', 'jane@example.com', 'hashedpassword2', '20/02/2024', 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Pathfinder', 'Sci-fi', 'url_image_2');
 
+-- Insérer des jeux de rôle
+INSERT INTO jdrs (name)
+VALUES
+('The Fall of Hyrule'),
+('Pathfinder');
+
 -- Insérer des campagnes
-INSERT INTO campaigns (is_favorite, name, status, jdr_type, date_creation) 
+INSERT INTO campaigns (name, status, id_jdr, id_mj, date_creation) 
 VALUES 
-(TRUE, 'Adventure in the Forgotten Realms', 'Ongoing', 'Dungeons & Dragons', '20/02/2024'),
-(FALSE, 'Space Exploration', 'Planned', 'Sci-fi', '20/02/2024');
+('Adventure in the Forgotten Realms', 'Ongoing', 1, 1, '20/02/2024'),
+('Space Exploration', 'Planned', 2, 2, '20/02/2024');
 
 -- Insérer des personnages
 INSERT INTO characters (is_favorite, name, image, id_campaign, date_creation, id_user) 
