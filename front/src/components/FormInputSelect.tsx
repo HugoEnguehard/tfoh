@@ -22,7 +22,7 @@ const CustomSelect = styled('select')({
 });
 
 
-interface FormInputSelectProps<T, U> {
+interface FormInputSelectProps<T,> {
     name: keyof T;
     handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     formData: T;
@@ -30,13 +30,13 @@ interface FormInputSelectProps<T, U> {
     incorrectField?: boolean;
 }
 
-const FormInputSelect = <T, U>({
+const FormInputSelect = <T,>({
     name,
     handleChange,
     formData,
     options,
     incorrectField,
-}: FormInputSelectProps<T, U>) => {
+}: FormInputSelectProps<T>) => {
     return (
         <>
             <CustomSelect

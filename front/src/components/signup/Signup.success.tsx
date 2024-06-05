@@ -5,15 +5,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import GreenNavLink from "../GreenNavLink";
 import { SignupSuccessGrid, SuccessSVGBox } from "../../pages/signup/Signup.wrapper";
 
-// Interfaces
-interface SignupSuccessComponentProps {
 
-}
-
-export const SignupSuccessComponent = ({
-
-}: SignupSuccessComponentProps) => {
-
+export const SignupSuccessComponent = () => {
     return (
         <SignupSuccessGrid>
             <SuccessSVGBox>

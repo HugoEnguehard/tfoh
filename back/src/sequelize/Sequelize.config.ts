@@ -3,7 +3,8 @@ const sequelizeConfig = {
     database: 'tfoh',
     username: 'root',
     password: 'root_password',
-    host: 'db',
+    host: 'localhost',
+    // host: 'db', // For deployment !
     dialect: 'mysql',
     port: 3306,
   },

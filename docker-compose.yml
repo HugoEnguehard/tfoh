@@ -4,7 +4,7 @@ services:
   db:
     build:
       context: ./back
-      dockerfile: DockerFile.mysql
+      dockerfile: Dockerfile.mysql
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: root_password

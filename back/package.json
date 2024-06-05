@@ -7,10 +7,11 @@
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "db:start": "docker-compose up -d",
-    "db:stop": "docker-compose down",
-    "db:remove:container": "docker-compose down",
-    "db:remove:image": "docker-compose down --rmi all"
+    "db:build": "docker build -t my_mysql_image -f Dockerfile.mysql .",
+    "db:start": "docker run -d --name my_mysql_container -p 3306:3306 my_mysql_image",
+    "db:stop": "docker stop my_mysql_container",
+    "db:remove:container": "docker rm -f my_mysql_container",
+    "db:remove:image": "docker rmi my_mysql_image"
   },
   "keywords": [],
   "author": "",

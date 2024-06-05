@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthProvider.context";
 import SignupForm from "../interfaces/SignupForm";
 import { CheckEmail, CheckPassword } from "../utils/formChecks";
 import { SignupFormComponent } from "../components/signup/Signup.form";
-import { useNavigate } from "react-router-dom";
 import { SignupSuccessComponent } from "../components/signup/Signup.success";
 
 export interface SignupFormProblems {
@@ -16,7 +15,6 @@ export interface SignupFormProblems {
 
 export const SignupContainer = () => {
     const { register } = useAuth();
-    const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [formError, setFormError] = useState<string>('');

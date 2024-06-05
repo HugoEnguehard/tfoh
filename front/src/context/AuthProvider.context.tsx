@@ -1,5 +1,5 @@
 // React imports
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext } from "react"
 import { useCookies } from "react-cookie"
 
 // Redux imports

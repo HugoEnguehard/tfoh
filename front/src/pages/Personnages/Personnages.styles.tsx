@@ -1,5 +1,5 @@
 // Material imports
-import { Grid, Typography, styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
 
 export const CustomGridPage = styled(Grid)({
     width: '100%',

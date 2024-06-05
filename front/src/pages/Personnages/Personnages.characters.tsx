@@ -29,9 +29,10 @@ export const PersonnagesCharacters: FC = () => {
             } catch (error: any) {
                 setErrorMessage(error.message);
             }
-        };
+        }
 
         getUserCharacters();
+        // eslint-disable-next-line
     }, []);
 
     return (

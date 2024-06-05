@@ -1,5 +1,5 @@
 // React imports
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import TypographyText from "../../components/TypographyText";
 import DividerVertical from "../../components/DividerVertical";
 import FormLabel from "../../components/FormLabel/FormLabel";

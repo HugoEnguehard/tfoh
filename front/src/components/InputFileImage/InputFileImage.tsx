@@ -1,7 +1,3 @@
-// Material imports
-import styled from '@emotion/styled';
-import Avatar from '@mui/material/Avatar';
-
 // Style imports
 import {
     CustomAvatar,
