@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
+    "build": "tsc",
     "db:start": "docker-compose up -d",
     "db:stop": "docker-compose down",
     "db:remove:container": "docker-compose down",

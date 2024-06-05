@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  db:
+    build:
+      context: ./back
+      dockerfile: DockerFile.mysql
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  front:
+    container_name: front
+    restart: always
+    build:
+      context: ./front
+      dockerfile: Dockerfile.frontend
+    depends_on:
+      - back
+    ports:
+      - "3000:3000"
+
+  back:
+    container_name: back
+    restart: always
+    build:
+      context: ./back
+      dockerfile: Dockerfile.backend
+    ports:
+      - "3004:3004"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql-data:

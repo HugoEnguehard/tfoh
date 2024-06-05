@@ -1,0 +1,11 @@
+FROM node:14
+
+WORKDIR /back
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3004
+
+CMD ["npm", "run", "dev"]
