@@ -19,6 +19,8 @@ const NotFound = lazy(() => import('./pages/page-content/NotFound'));
 const Profile = lazy(() => import('./pages/profile'));
 const Account = lazy(() => import('./pages/account'));
 const Personnages = lazy(() => import('./pages/personnages'));
+const Campaigns = lazy(() => import('./pages/campaigns'));
+const NewCampaign = lazy(() => import('./pages/newCampaign'));
 
 // Page layout imports
 const LandingLayout = lazy(()=>import ('./pages/layouts/landing-layout'));
@@ -99,6 +101,24 @@ const AppRouter = () => {
                     <Suspense fallback={<></>}>
                         <RequiredAuthWrapper children={
                             <ProfileLayout childComponent={Personnages} />
+                        } />
+                    </Suspense>
+                } 
+            />
+            <Route path='/campaigns' 
+                element={
+                    <Suspense fallback={<></>}>
+                        <RequiredAuthWrapper children={
+                            <ProfileLayout childComponent={Campaigns} />
+                        } />
+                    </Suspense>
+                } 
+            />
+            <Route path='/newCampaign' 
+                element={
+                    <Suspense fallback={<></>}>
+                        <RequiredAuthWrapper children={
+                            <SigninLayout childComponent={NewCampaign} />
                         } />
                     </Suspense>
                 } 

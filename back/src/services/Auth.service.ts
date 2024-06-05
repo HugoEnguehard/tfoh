@@ -16,7 +16,7 @@ const authService = {
             const { password: _, ...userData } = user.toJSON();
 
             const token = jwt.sign({ user: userData }, process.env.JWT_SECRET || '', {
-                expiresIn: '1h',
+                expiresIn: '12h',
             });
 
             return { token, status: 200 }

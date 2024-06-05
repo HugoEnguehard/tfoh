@@ -19,6 +19,7 @@ const CustomSelect = styled('select')({
     backgroundImage: `url(${triangleDown})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right 10px top 50%',
+    outline: 'none',
 });
 
 

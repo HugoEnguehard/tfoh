@@ -14,7 +14,7 @@ const ProfileSidebar: FC = () => {
                     <MenuNavLink url="/profile" label="GENERAL" />
                     <MenuNavLink url="/account" label="MON COMPTE" />
                     <MenuNavLink url="/characters" label="PERSONNAGES" />
-                    <MenuNavLink url="/campaignes" label="CAMPAGNES" />
+                    <MenuNavLink url="/campaigns" label="CAMPAGNES" />
                     <MenuNavLink url="/friends" label="AMIS" />
                 </Styles.CustomNavTop>
                 <Styles.CustomNavBottom style={{marginBottom: '30px'}}>

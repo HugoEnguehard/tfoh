@@ -16,7 +16,7 @@ class AuthController {
         if(status !== 200) return res.status(status).json({ message: error });
 
         res.cookie('Authorization', token, {
-          maxAge: 1 * 60 * 60 * 1000, // 1 hour
+          maxAge: 12 * 60 * 60 * 1000, // 12 hour
           httpOnly: false,
           secure: process.env.NODE_ENV === 'production'
         });

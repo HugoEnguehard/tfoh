@@ -5,7 +5,8 @@ import path from 'path';
 
 import authRoutes from './routes/Auth.routes';
 import userRoutes from './routes/User.routes';
-import characterRoutes from './routes/Character.routes';
+// import characterRoutes from './routes/Character.routes';
+import campaignRoutes from './routes/Campaign.routes';
 
 require('dotenv').config()
 
@@ -26,7 +27,8 @@ app.use('/user-images/pp', express.static(userImagesPath));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/characters', characterRoutes);
+app.use('/api/campaigns', campaignRoutes);
+// app.use('/api/characters', characterRoutes);
 
 app.listen(PORT, () => {
   console.log(`API started on http://localhost:${PORT}/api/`);
