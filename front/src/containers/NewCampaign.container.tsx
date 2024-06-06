@@ -32,7 +32,7 @@ export const NewCampaignContainer = () => {
         try {
             if(!checkIsFormValid()) return;
     
-            const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/campaigns/`, formData, { withCredentials: true });
+            const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/campaigns/`, formData, { withCredentials: true });
 
             navigate("/campaigns");
         } catch (error: any) {
@@ -57,7 +57,7 @@ export const NewCampaignContainer = () => {
 
     const getJdrList = async () => {
         try {
-            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/campaigns/jdrs`, { withCredentials: true });
+            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/campaigns/jdrs`, { withCredentials: true });
 
             const optionList: SelectOptions[] = [];
 

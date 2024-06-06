@@ -38,7 +38,7 @@ export const CampaignsContainer = () => {
 
     const getUserCampaigns = async () => {
         try {
-            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/campaigns`, { withCredentials: true });
+            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/campaigns`, { withCredentials: true });
             setCampaignsList(apiResponse.data.campaigns);
             setSortedCampaignsList(apiResponse.data.campaigns)
         } catch (error: any) {
@@ -48,7 +48,7 @@ export const CampaignsContainer = () => {
 
     const getJdrList = async () => {
         try {
-            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/campaigns/jdrs`, { withCredentials: true });
+            const apiResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/campaigns/jdrs`, { withCredentials: true });
 
             const optionList: SelectOptions[] = [];
 

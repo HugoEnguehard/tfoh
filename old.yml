@@ -5,22 +5,18 @@ services:
     build:
       context: ./back
       dockerfile: Dockerfile.mysql
-    container_name: bd
-    # environment:
-    #   MYSQL_ROOT_PASSWORD: root_password
-    #   MYSQL_DATABASE: tfoh
-      # MYSQL_USER: root
-      # MYSQL_PASSWORD: root_password
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
     healthcheck:
-        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-        timeout: 20s
-        retries: 10
-    networks:
-      - app-network
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   front:
     container_name: front
@@ -30,13 +26,8 @@ services:
       dockerfile: Dockerfile.frontend
     depends_on:
       - back
-    networks:
-      - app-network
-    environment:
-      # - REACT_APP_BACKEND_URL=http://localhost/api
-      # - REACT_APP_BACKEND_URL_PP_IMAGES=http://localhost/api
-      - REACT_APP_BACKEND_URL=http://176.138.27.163:12069/api
-      - REACT_APP_BACKEND_URL_PP_IMAGES=http://176.138.27.163:12069/api
+    ports:
+      - "3000:3000"
 
   back:
     container_name: back
@@ -49,8 +40,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - app-network
 
   nginx:
     image: nginx:latest

@@ -30,7 +30,7 @@ export const authentificateUser = createAsyncThunk<
     UserDataLogin
 >("auth/authentificate", async (userData: UserDataLogin) => {
     try {
-        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`, {
+        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, {
             username: userData.username,
             password: userData.password,
         }, { withCredentials: true });
@@ -49,7 +49,7 @@ export const registerUser = createAsyncThunk<
     SignupData
 >("auth/register", async (userData: SignupData) => {
     try {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, userData, { withCredentials: true })
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, userData, { withCredentials: true })
 
         if(response.status === 200) return { response: true }
         else return { response: false, message: "Une erreur est survenue" }
@@ -61,7 +61,7 @@ export const registerUser = createAsyncThunk<
 
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
     try {
-        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`, {}, { withCredentials: true })
+        const apiResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, {}, { withCredentials: true })
         if (apiResponse.status === 200) return true
         else return false
     } catch (error) {

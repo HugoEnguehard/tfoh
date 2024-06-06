@@ -53,7 +53,7 @@ const authSlice = createSlice({
 
 export const editUserProfile = createAsyncThunk<EditUserResult, ProfileForm>('user/editProfile', async (formData: ProfileForm) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/profile`, {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/profile`, {
             bio: formData.bio,
             favorite_jdr: formData.favorite_jdr,
         }, { withCredentials: true });
@@ -78,7 +78,7 @@ export const editUserAccount = createAsyncThunk<EditUserResult, AccountGeneralFo
         dataToSend.append('preference', formData.preference);
         if (formData.profile_picture.file) dataToSend.append('profile_picture', formData.profile_picture.file);
 
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/account`, dataToSend, { withCredentials: true })
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/account`, dataToSend, { withCredentials: true })
 
 
         if(response.status === 200) return { result: true, editedUser: response.data.user };
@@ -92,7 +92,7 @@ export const editUserAccount = createAsyncThunk<EditUserResult, AccountGeneralFo
 
 export const editUserPassword = createAsyncThunk<EditUserResult, AccountPasswordForm>('user/editPassword', async (formData: AccountPasswordForm) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/password`, {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/password`, {
             oldPassword: formData.oldPassword,
             newPassword: formData.newPassword,
         }, { withCredentials: true });

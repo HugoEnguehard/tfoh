@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
             if (authResponse.result) {
                 const userProfileData: any = await (
-                    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/me`, { withCredentials: true })
+                    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/me`, { withCredentials: true })
                 ).data.user;
                 
                 dispatch(setUser(userProfileData as UserState))
